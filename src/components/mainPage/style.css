@@ -1,0 +1,1201 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.root {
+  align-items: center;
+  background-color: #f0f0f0;
+  height: 100vh;
+  padding-top: 30px;
+  display: flex;
+}
+
+.rootPhone {
+  align-items: center;
+  background-color: #f0f0f0;
+  height: 100vh;
+  display: none;
+}
+
+.main {
+  position: fixed;
+  width: 1450px;
+  height: 700px;
+  border-radius: 10px;
+
+}
+
+.ChatBox {
+  background-color: #f4f3f8;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+.phoneChatbox {
+  background-color: #f4f3f8;
+  border-radius: 10px;
+}
+
+.listRoom {
+  margin-top: 20px;
+}
+
+.left {
+  width: 100%;
+  height: 93%;
+  text-align: center;
+}
+
+.newChatBtn {
+  background-color: white;
+  border-radius: 10px;
+  border: white;
+  width: 95%;
+  height: 50px;
+  margin-bottom: -20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.span1 {
+  width: 20%;
+}
+
+.span2 {
+  width: 30%;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 7px 5px;
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.span2:hover {
+  background-color: #e6e5ea;
+}
+
+.menuChat {
+  padding-top: 20px;
+}
+
+.menuChat p {
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.drpMenu {
+  margin-right: 20px;
+  background-color: aquamarine;
+}
+
+.openMenu {
+  background-color: white;
+  height: 300px;
+  width: 150px;
+  position: absolute;
+  margin-left: 90px;
+}
+
+.imgMenu {
+  border-radius: 40%;
+  background-color: #f4f3f8;
+  border: #f4f3f8;
+  margin-right: 10px;
+}
+
+.inpt {
+  border-radius: 10px;
+  width: 95%;
+  height: 50px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #e6e5ea;
+  border: #e6e5ea;
+  padding-left: 10px;
+  outline: none;
+}
+
+.listChat {
+  background-color: transparent;
+  max-height: 435px;
+  overflow: auto;
+  width: 95%;
+  margin-left: 7px;
+  margin-top: 20px;
+}
+
+.listmap {
+  margin-bottom: 8px;
+  margin-right: 5px;
+}
+
+.listView {
+  height: 70px;
+  width: 101%;
+  max-width: 101%;
+  border-radius: 10px;
+  align-items: center;
+  cursor: pointer;
+  padding-right: 15px;
+}
+
+.blackBackground {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+.listView:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.listView img {
+  border-radius: 50%;
+  margin-left: 5px;
+  background-color: white;
+  object-fit: contain;
+  background-color: rgba(0, 0, 0, 0.07);;
+}
+
+
+.listView .name {
+  overflow: hidden;
+  font-size: 14px;
+  text-align: left;
+  margin-left: 10px;
+  width: 90%;
+}
+
+.deleteContact {
+  z-index: 99;
+}
+
+.timeRoomChat {
+  color:rgba(0, 0, 0, 0.7);
+  font-weight: lighter;
+  font-size: 12px;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.nameAndTime {
+  margin-top: 20px;
+  margin-bottom: -10px;
+  
+}
+
+.name1 {
+  margin-top: -5px;
+  max-height: 25px;
+  font-weight: 700;
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.edtmrgnTop {
+  margin-bottom: 5px;
+}
+
+.textPreview {
+  width: 95%;
+  max-width: 95%;
+  font-size: 12px;
+  overflow: hidden;
+  max-height: 20px;
+  color: rgba(0, 0, 0, 0.6);
+
+}
+
+.imageTypeLastChat {
+  margin-bottom: 3px;
+  margin-right: 3px;
+}
+
+.chatView {
+  padding: 0px;
+}
+
+.contactView {
+  padding-top: 20px;
+  width: 100%;
+  padding-bottom: 15px;
+  margin: 0px 10 auto auto;
+}
+
+.avatarAndName {
+  cursor: pointer;
+}
+
+.closeChat img {
+  margin-right: 10px;
+}
+
+.avatarAndName p {
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.miniProfil {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.07);
+  object-fit: contain;
+  margin-right: 1px;
+}
+
+.searchChatButton {
+}
+
+.chatContent {
+  margin-top: 5px;
+  margin-left: -10px;
+  width: 100%;
+  height: 495px;
+  max-height: 495px;
+  overflow: auto;
+ 
+}
+
+.chatContent2 {
+  margin-left: -10px;
+  width: 100%;
+  height: 265px;
+  max-height: 265px;
+  overflow: auto;
+  animation: animasiChatContent2 0.5s ease;
+}
+
+.chatContent4 {
+  margin-left: -10px;
+  width: 100%;
+  height: 175px;
+  max-height: 175px;
+  overflow: auto;
+  animation: animasiChatContent2 0.5s ease;
+}
+
+@keyframes animasiChatContent2{
+  0%{
+    height: 495px;
+  }
+  100% {
+    height: 265px;
+  }
+}
+
+.chatAndProfil {
+  margin-bottom: 10px;
+}
+
+.content {
+  font-size: 17px;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.6);
+  border-radius: 0px 10px 10px 10px;
+  margin-left: 3px;
+  padding: 5px 10px 0px 10px;
+  background-color: white;
+  max-width: 400px;
+  min-width: 70px;
+  margin-bottom: 5px;
+}
+
+.chatAndProfil img {
+  border-radius: 50%;
+  background-color: white;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.07);
+  object-fit: contain;
+}
+
+.myRoom {
+  margin-right: 8px;
+  background-color: #6c84ff;
+  border-radius: 10px 0px 10px 10px;
+  color: white;
+  
+}
+
+.inputChat {
+  background-color: white;
+  width: 98%;
+  height: 45px;
+  margin-top: 13px;
+  border-radius: 10px;
+}
+
+.timeAndStatus img {
+  background-color: transparent;
+  margin-top: -7px;
+  margin-right: -2px;
+  margin-left: 3px;
+}
+
+.timeAndStatus p {
+  margin-right: 1px;
+}
+
+.time {
+  font-size: 10px;
+  margin-top: -7px;
+  margin-bottom: 5px;
+}
+
+.downArrow {
+  margin-bottom: 5px;
+  padding-right: -5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  width: 30px;
+  height: 14.3px;
+  margin-right: -5px;
+}
+
+.inputChat {
+  padding: 5px;
+}
+
+.inputChat img {
+  margin-left: 5px;
+}
+
+.inputChat textarea {
+  word-wrap: break-word;
+  justify-content: center;
+  width: 85%;
+  min-height: 12px;
+  height: 14px;
+  max-height: 100px;
+  max-height: 100px;
+  margin-left: 10px;
+  margin-right: 5px;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+
+.emptyRoom p {
+  margin-top: 30px;
+  color: black;
+}
+
+.newChatIsEmpty {
+  margin-top: 70px;
+  background-color: #6c84ff;
+  color: white;
+  outline: none;
+  padding: 9px 15px;
+  border: none;
+  font-size: 14px;
+  border-radius: 9px;
+}
+
+.cht {
+  word-wrap: break-word;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.1px;
+}
+
+.sendIcon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.profil {
+  width: 100%;
+  margin-left: 20px;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  
+}
+
+.xyz{
+  height: 100%;
+  justify-content: center;
+}
+
+.profilImg {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 87%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+}
+
+.openProfil {
+  animation: animasiOpenProfil 0.3s ease;
+  width: 100%;
+}
+
+@keyframes animasiOpenProfil {
+  0% {
+    width: 0px;
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;
+    width: 16.7%;
+  }
+}
+
+.gry {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.info {
+  width: 100%;
+}
+
+.profilInfo {
+  text-align: left;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.profilInfo .label {
+  font-size: 13px;
+  font-weight: lighter;
+  padding-top: 5px;
+  margin-left: 8px;
+  color: #6c84ff;
+}
+
+.profilInfo .conten {
+  font-size: 14px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.borderImg {
+  border-radius: 10px;
+  margin-bottom: 25px;
+
+}
+
+.editImg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.editConten {
+  border: none;
+  width: 140px;
+  outline: none;
+  padding-bottom: 3px;
+}
+
+.borderEdit {
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  color: #6c84ff;
+  border-radius: 0px 0px 10px 10px;
+  margin-top: -5px;
+}
+
+.mrgn {
+  margin-bottom: 5px;
+}
+
+.saveEdit {
+  margin-top: 5px;
+  opacity: 1;
+}
+
+.editImage {
+  
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 35px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.editImage p {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  border-bottom: 1px solid white;
+  width: 100px;
+  cursor: pointer;
+}
+
+.editImage div {
+  margin-top: 8px;
+}
+
+.editImage input {
+  display: none;
+}
+
+.editImage img {
+  width: 50px;
+}
+
+.loadingProfil {
+  padding-top: 55px;
+}
+
+.nameContact {
+  width: 100%;
+}
+
+.confirmField {
+  width: 100%;
+  height: 100% ;
+  background-color:rgba(255, 255, 255, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  animation: animasiAddContact 0.5s ease;
+}
+
+.confirm {
+  background-color: white;
+  width: 400px;
+  height: 150px;
+  animation: animasiAddContact 1s ease;
+}
+
+.confirm p {
+  font-size: 14px;
+  margin-top: 20px;
+  margin-left: 20px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 35px;
+}
+
+.btnconfirm {
+  width: 400px;
+}
+
+.btnconfirm1 {
+  margin-right: 5px;
+  height: 45px;
+  outline: none;
+  border: 1px solid;
+  border-color:rgba(0, 0, 0, 0.3);
+  color: #6c84ff;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px 25px;
+  font-size: 14px;
+}
+
+.btnconfirm2 {
+  margin-right: 15px;
+  height: 45px;
+  outline: none;
+  border: 1px solid;
+  border-color:#6c84ff;
+  color: white;
+  background-color: #6c84ff;
+  border-radius: 5px;
+  padding: 5px 25px;
+  font-size: 14px;
+
+}
+
+
+
+.imgDeleteContact {
+  opacity: 0.7;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.openImg {
+  z-index: 999;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color:rgb(255, 255, 255, 0.95);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  animation: animasiAddContact 0.5s ease;
+}
+
+.backOpenImage {
+  height: 10vh;
+}
+
+.OpenImage {
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+  align-items: center;
+}
+
+.profilImgShow {
+  margin-bottom: 3vw;
+  min-height: 20vw;
+  max-height: 42vw;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.profilImgShowPhone {
+  min-width: 50%;
+  max-width: 100%;
+  max-height: 80vh;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.closeImg {
+  width: 30px;
+  margin-right: 30px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  opacity: 0.7;
+  
+}
+
+.emptyId {
+  text-align: center;
+  opacity: 0.4;
+  width: 100%;
+}
+
+.emptyId img {
+  width: 200px;
+}
+
+.emptyId .apkName{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: 10px;
+  font-size: 22px;
+}
+
+.dev {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.closeProfil {
+  opacity: 0.5;
+  align-items: start;
+  margin-left: -190px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.contactProfilName {
+  margin-left: -10px;
+  margin-top: -10px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.emoji {
+  cursor: pointer;
+}
+
+.closeEmoji {
+  width: 25px;
+  height: 20px;
+  padding-left: 5px;
+  margin-right: 5px;
+  opacity: 0.6;
+}
+
+.emojies {
+  height: 230px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: -10px;
+  animation: animasiEmoji 0.2s ease ;
+}
+
+.falseEmojies {
+  display: none;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: -10px;
+}
+
+@keyframes falseAnimasiEmoji {
+  0% {
+    height: 230px;
+    margin-top: 0px;
+  }
+  100% {
+    height: 0px;
+  }
+}
+
+@keyframes animasiEmoji {
+  0% {
+    margin-top: 230px;
+    height: 0px;
+  }
+  100% {
+    height: 230px;
+    margin-top: 0px;
+  }
+}
+
+.emojiBox {
+  width: 99%;
+  overflow: auto;
+  height: 95%;
+  max-height: 93%;
+  font-size: 23px;
+
+}
+
+.emojiBox p {
+  cursor: pointer;
+}
+
+.emot {
+  font-size: 52px;
+}
+
+.contentForwardText .emot {
+  font-size: 22px;
+}
+
+.addImgChat {
+  cursor: pointer;
+}
+
+.display-none {
+  display: none;
+}
+
+.chatImage {
+  border-radius: 10px;
+  max-width: 400px;
+}
+
+.content img {
+  border-radius: 5px;
+}
+
+.contentImg {
+  max-width: 380px;
+  min-height: 230px;
+  min-width: 160px;
+  margin-top: 3px;
+  max-height: 230px;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.progresText {
+  font-size: 13px;
+}
+
+.optChat {
+  animation: animasiOptChat 0.3s ease;
+}
+
+@keyframes animasiOptChat {
+  0% {
+    height: 13px;
+  }
+  100% {
+    height: 40px;
+  }
+}
+
+.optChat p {
+  font-size: 13px;
+  margin-right: 10px;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.optChat p:hover{
+background-color: rgba(0, 0, 0, 0.3)
+}
+
+.chatContent3 {
+  margin-left: -10px;
+  width: 100%;
+  height: 403px;
+  max-height: 495px;
+  overflow: auto;
+}
+
+.forwardInput {
+  margin-top: 5px;
+  margin-bottom: -13px;
+  background-color: white;
+  height: 100px;
+  width: 100%;
+  margin-left: -10px;
+  border-radius: 10px;
+  animation: animasiForwardInput 0.3s ease;
+}
+
+@keyframes animasiForwardInput {
+  from {
+    margin-top: 105px;
+    opacity: 0;
+    height: 0px;
+  }
+  to {
+    opacity: 1;
+    height: 100px;
+  }
+}
+
+.forwardInput .closeForward {
+  opacity: 0.6;
+  cursor: pointer;
+  width: 3%;
+  margin-right: 3%;
+}
+
+.contentForward {
+  border-radius: 5px;
+  width: 89%;
+  max-height: 85%;
+  background-color: rgba(0, 0, 0, 0.07);
+  border-left: 5px solid #6c84ff;
+  overflow: hidden;
+  margin: auto;
+}
+
+.contentForward p {
+  
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.forwardName {
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+
+.forwardtext {
+  font-size: 13px;
+  margin-bottom: 5px;
+  word-wrap: break-word;
+}
+
+.emtForward {
+  font-size: 28px;
+}
+
+.forwardImg {
+  width: 78px;
+  height: 78px;
+  object-fit: cover;
+}
+
+.cameraImg {
+  margin-left: 5px;
+  opacity: 0.6;
+  margin-right: 5px;
+}
+
+
+.contentForwardText {
+  cursor: pointer;
+  background-color:rgba(0, 0, 0, 0.1);
+  max-height: 100px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.contentForwardText p {
+margin-top: 3px;
+  margin-left: 5px;
+  margin-right: 8px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  word-wrap: break-word;
+}
+
+.imageForward {
+  object-fit: cover;
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+  
+}
+
+.imageField {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 1111px) {
+  /* .openProfil {
+    display: none;
+  }
+  .main {
+    justify-content: center;
+    width: 97%;
+  }
+  .ChatBox {
+    justify-content: end;
+    background-color:#f4f3f8;
+  }
+  .avatarAndName p {
+    margin-top: 15px;
+    margin-left: 30px;
+  } */
+}
+
+@media (max-width: 768px) {
+  .main{
+    width: 100%;
+    height: 100%;
+  }
+  
+}
+
+@media (max-width: 576px) {
+  .root{
+    display: none;
+  }
+  .rootPhone {
+    display: flex;
+  }
+  .main{
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .contentImg {
+    max-width: 100%;
+    min-height: 100px;
+    min-width: 100px;
+    margin-top: 3px;
+    max-height: 100px;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  .content {
+    font-size: 15px;
+    max-width: 70%;
+    min-width: 30px;
+    margin-bottom: 5px;
+  }
+  .avatarAndName p {
+    margin-top: 15px;
+    margin-left: 10px;
+  }
+  .avatarAndName .miniProfil {
+    border-radius: 50%;
+    width: 6vh;
+    height: 6vh;
+    background-color: rgba(0, 0, 0, 0.07);
+    object-fit: contain;
+    margin-right: 1px;
+  }
+  .cht {
+    word-wrap: break-word;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    letter-spacing: 0.5px;
+  }
+  .chatContent {
+    width: 100%;
+    max-height: 78vh;
+    height: 78vh;
+    overflow: auto;
+    margin: 0px;
+  }
+  .chatContent2 {
+    margin: 0px;
+    width: 100%;
+    height: 48vh;
+    max-height: 48vh;
+    overflow: auto;
+    animation: none;
+  }
+  .emojies {
+    height: 30vh;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0px;
+    animation: animasiEmojiPhone 0.3s ease ;
+  }
+  @keyframes animasiEmojiPhone {
+    0% {
+      margin-top: 30vh;
+      height: 0px;
+    }
+    100% {
+      height: 30vh;
+      margin-top: 0px;
+    }
+  }
+  .chatContent3 {
+    margin: 0px;
+    width: 100%;
+    height: 66vh;
+    max-height: 66vh;
+    overflow: auto;
+  }
+  .forwardInput {
+    margin-top: 5px;
+    margin-bottom: -13px;
+    background-color: white;
+    height: 13vh;
+    width: 100%;
+    margin-left: 0px;
+    border-radius: 10px;
+    animation: animasiForwardInput 0.3s ease;
+  }
+  
+  @keyframes animasiForwardInput {
+    from {
+      margin-top: 14vh;
+      opacity: 0;
+      height: 0px;
+    }
+    to {
+      opacity: 1;
+      height: 13vh;
+    }
+  }
+
+  .chatContent4 {
+    margin: 0px;
+    width: 100%;
+    height: 36vh;
+    max-height: 36vh;
+    overflow: auto;
+    animation: animasiChatContent2Phone 0.5s ease;
+  }
+  
+  @keyframes animasiChatContent2Phone{
+    0%{
+      height: 66vh;
+    }
+    100% {
+      height: 36vh;
+    }
+  }
+
+  .contactView {
+    height: 10vh;
+    padding-top: 20px;
+    width: 100%;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+  }
+  .imageForward {
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
+    
+  }
+  .inputChat {
+    background-color: white;
+    width: 100%;
+    height: 7vh;
+    margin-left: 0px;
+    margin-top: 13px;
+    border-radius: 10px;
+  }
+  .left {
+    padding-right: 0px;
+  }
+  .listView {
+    padding-right: 5px;
+  }
+  .listView .name {
+    width: 85%;
+    
+  }
+  /* .main {
+    background-color: #6c84ff;
+  }
+  /*  */
+  .ChatBox {
+    border-radius: 0px;
+  } 
+  .confirm {
+    background-color: white;
+    width: 90%;
+    height: 150px;
+    animation: animasiAddContact 1s ease;
+  }
+  .confirm p {
+    font-size: 13px;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 35px;
+  }
+  
+  .btnconfirm {
+    width: 100%;
+  }
+  
+  .btnconfirm1 {
+    margin-right: 5px;
+    height: 45px;
+    outline: none;
+    border: 1px solid;
+    border-color:rgba(0, 0, 0, 0.3);
+    color: #6c84ff;
+    background-color: white;
+    border-radius: 5px;
+    padding: 0px 20px;
+    font-size: 12px;
+  }
+  
+  .btnconfirm2 {
+    margin-right: 15px;
+    height: 45px;
+    outline: none;
+    border: 1px solid;
+    border-color:#6c84ff;
+    color: white;
+    background-color: #6c84ff;
+    border-radius: 5px;
+    padding: 0px 20px;
+    font-size: 12px;
+  
+  }
+  .chatView {
+    padding: 0;
+    animation: animasichatview 0.6s ease;
+    
+  }
+  .listRoom {
+    animation: animasichatview 0.6s ease;
+  }
+  @keyframes animasichatview {
+    0% {
+      
+      opacity: 0;
+    }
+    100% {
+      opacity: ;
+    }
+  }
+  
+}
