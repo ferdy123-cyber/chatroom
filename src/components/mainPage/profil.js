@@ -39,7 +39,7 @@ const Profil = ({
             width="30px"
           />
           <div className="borderImg">
-            {imageedit === false && (
+            {imageedit === false && profilLoading === false && (
               <div onMouseOver={() => setImageEdit(true)}>
                 {e.imageProfil !== "" && (
                   <img
@@ -53,7 +53,7 @@ const Profil = ({
                 )}
               </div>
             )}
-            {imageedit === true && (
+            {imageedit === true && profilLoading === false && (
               <div className="editImage profilImg shadow-sm align-items-center">
                 <div
                   onMouseOut={() => setImageEdit(false)}
@@ -94,6 +94,13 @@ const Profil = ({
               </div>
             )}
 
+            {profilLoading === true && (
+              <div className="editImage profilImg shadow-sm align-items-center">
+                <div className="loadingProfil ">
+                  <div class="spinner-border text-light" role="status"></div>
+                </div>
+              </div>
+            )}
             {openImg === true && (
               <div className="openImg position-fixed">
                 <div
@@ -103,13 +110,6 @@ const Profil = ({
                   <img className="closeImg" src={close} alt="" />
                 </div>
                 <img className="profilImgShow" src={e.imageProfil} alt="" />
-              </div>
-            )}
-            {profilLoading === true && (
-              <div className="editImage profilImg shadow-sm align-items-center">
-                <div className="loadingProfil ">
-                  <div class="spinner-border text-light" role="status"></div>
-                </div>
               </div>
             )}
           </div>
@@ -127,7 +127,7 @@ const Profil = ({
                       alt=""
                     />
                   )}
-                  {profilEdit === true && (
+                  {profilEdit === true && name !== "" && (
                     <img
                       onClick={() =>
                         updateProfil(
@@ -170,7 +170,7 @@ const Profil = ({
                       alt=""
                     />
                   )}
-                  {statusEdit === true && (
+                  {statusEdit === true && info !== "" && (
                     <img
                       onClick={() =>
                         updateProfil(

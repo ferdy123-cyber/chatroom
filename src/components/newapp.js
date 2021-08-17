@@ -1,9 +1,8 @@
 import axios from "axios";
 import { connect } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const NewApp = ({ jsonData, getAllData }) => {
-  const [data, setdata] = useState([]);
   useEffect(() => {
     getAllData();
   }, [getAllData]);
@@ -11,9 +10,6 @@ const NewApp = ({ jsonData, getAllData }) => {
   return (
     <div>
       <button>getdata</button>
-      {data.map((e) => {
-        return <p>{e.title}</p>;
-      })}
     </div>
   );
 };

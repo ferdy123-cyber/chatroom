@@ -91,6 +91,7 @@ export const addUser = (data) => {
 };
 
 export const getUser = () => (dispatch) => {
+  dispatch({ type: "ASSET_LOADING", value: true });
   dispatch({ type: "CHANGE_LOADING", value: true });
   return database.ref("/users").on("value", (snapshot) => {
     const todos = [];
@@ -104,6 +105,7 @@ export const getUser = () => (dispatch) => {
       type: "GET_USER",
       value: todos,
     });
+    dispatch({ type: "ASSET_LOADING", value: false });
   });
 };
 
@@ -193,7 +195,6 @@ export const addContact = (data) => (dispatch) => {
   );
 };
 export const getContact = () => (dispatch) => {
-  dispatch({ type: "ASSET_LOADING", value: true });
   return database
     .ref(`/${localStorage.getItem("chatId")}/contacts`)
     .on("value", (snapshot) => {
@@ -561,6 +562,7 @@ export const getChats = (data) => (dispatch) => {
             type: snapshot.val()[e].type,
             forwardChat: snapshot.val()[e].forwardChat,
             forwardName: snapshot.val()[e].forwardName,
+            forwardChatId: snapshot.val()[e].forwardChatId,
             forwardSenderId: snapshot.val()[e].forwardSenderId,
           });
           return <div></div>;
@@ -689,6 +691,7 @@ export const sendChat = (data) => (dispatch) => {
         forwardChat: data.forwardChat,
         forwardName: data.forwardName,
         forwardSenderId: data.forwardSenderId,
+        forwardChatId: data.forwardChatId,
       },
       (error) => {
         if (error) {
@@ -718,6 +721,7 @@ export const addMyChats = (data) => {
         forwardChat: data.forwardChat,
         forwardName: data.forwardName,
         forwardSenderId: data.forwardSenderId,
+        forwardChatId: data.forwardChatId,
       },
       (error) => {
         if (error) {
@@ -744,11 +748,13 @@ export const addDestinationChats = (data) => {
         senderRoomId: data.myRoomId,
         receiverRoomId: data.destinationRoomId,
         time: data.time,
+        timeStamp: data.timeStamp,
         status: "send",
         type: data.type,
         forwardChat: data.forwardChat,
         forwardName: data.forwardName,
         forwardSenderId: data.forwardSenderId,
+        forwardChatId: data.forwardChatId,
       },
       (error) => {
         if (error) {
@@ -893,6 +899,7 @@ export const SendImage = (data) => (dispatch) => {
             forwardChat: data.forwardChat,
             forwardName: data.forwardName,
             forwardSenderId: data.forwardSenderId,
+            forwardChatId: data.forwardChatId,
           });
           addDestinationChats({
             chat: downloadURL,
@@ -907,6 +914,7 @@ export const SendImage = (data) => (dispatch) => {
             forwardChat: data.forwardChat,
             forwardName: data.forwardName,
             forwardSenderId: data.forwardSenderId,
+            forwardChatId: data.forwardChatId,
           });
         });
         dispatch({ type: "contentImageLoading", value: false });
@@ -964,7 +972,6 @@ export const changeImage = (data) => (dispatch) => {
 };
 
 export const loadProfilRoom = (data) => (dispatch) => {
-  dispatch({ type: "ASSET_LOADING", value: true });
   const profilAccounts = [];
   data.map((e) => {
     return database
@@ -988,7 +995,6 @@ export const loadProfilRoom = (data) => (dispatch) => {
           profil: profil[0],
         });
         dispatch({ type: "GET_ROOM_PROFIL", value: profilAccounts });
-        dispatch({ type: "ASSET_LOADING", value: false });
       });
   });
 };
@@ -1012,6 +1018,7 @@ export const deleteChat = (data) => (dispatch) => {
           forwardChat: "",
           forwardName: "",
           forwardSenderId: "",
+          forwardChatId: "",
         },
 
         (error) => {
@@ -1091,4 +1098,91 @@ export const editRoomName = (data) => (dispatch) => {
         }
       }
     );
+};
+
+export const deleteRoomChat = (data) => (dispatch) => {
+  return database
+    .ref(`/${data.userId}/roomChat/${data.roomId}/Chats`)
+    .remove((error) => {
+      if (error) {
+        // The write failed...
+        console.log(error);
+      } else {
+        // Data saved successfully!
+        console.log("succes");
+        dispatch({
+          type: "ROOM_ID",
+          value: {
+            destinationRoomId: "",
+            destinationUserId: "",
+            myRoomId: "",
+            userId: "",
+            destinationName: "",
+            destination: "",
+            account: {
+              imageProfil: "",
+              name: "",
+              status: "",
+            },
+          },
+        });
+        // console.log(data.userId);
+        // console.log(data.roomId);
+      }
+    });
+};
+
+export const cleanChat = (data) => (dispatch) => {
+  data.chats
+    .filter((val, index) => index > 0)
+    .map((e) => {
+      return database
+        .ref(`/${data.userId}/roomChat/${data.roomId}/Chats/${e.id}`)
+        .remove((error) => {
+          if (error) {
+            // The write failed...
+            console.log(error);
+          } else {
+            // Data saved successfully!
+            console.log("succes");
+          }
+        });
+    });
+  data.chats
+    .filter((val, index) => index === 0)
+    .map((e) => {
+      console.log(e);
+      return database
+        .ref(`/${data.userId}/roomChat/${data.roomId}/Chats/${e.id}`)
+        .set(
+          {
+            chat: "",
+            userId: "",
+            destinationId: "",
+            myRoomId: "",
+            destinationRoomId: "",
+            time: "",
+            timeStamp: "",
+            status: "send",
+            type: "",
+            forwardChat: "",
+            forwardName: "",
+            forwardSenderId: "",
+            forwardChatId: "",
+          },
+
+          (error) => {
+            if (error) {
+              // dispatch({ type: "CHANGE_LOADING", value: false });
+              // The write failed...
+
+              console.log(error);
+            } else {
+              // dispatch({ type: "CHANGE_LOADING", value: false });
+              // Data saved successfully!
+              console.log("tidak terhapus");
+            }
+          }
+        );
+    });
 };

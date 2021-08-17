@@ -6,6 +6,8 @@
   animation: animasiAddContact 0.5s ease;
 }
 
+
+
 @keyframes animasiAddContact {
   0% {
     opacity: 0;
@@ -31,7 +33,7 @@
 
 .mainAddContact {
   width: 90%;
-  height: 70vh;
+  height: 65vh;
   margin: auto;
   margin-top: 10px;
 }
@@ -131,5 +133,14 @@
     right: 0;
     margin: 20px auto;
   }
+
+  .chatOpt {
+    z-index: 999999;
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+  }
+
   
 }

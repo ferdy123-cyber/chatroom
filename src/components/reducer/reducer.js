@@ -47,6 +47,7 @@ const initialstate = {
   progressImage: 0,
   openChat: false,
   jsonData: [],
+  chatSetting: false,
 };
 
 const Reducer = (state = initialstate, action) => {
@@ -67,6 +68,13 @@ const Reducer = (state = initialstate, action) => {
     return {
       ...state,
       openChat: action.value,
+    };
+  }
+
+  if (action.type === "CHAT_SETTING") {
+    return {
+      ...state,
+      chatSetting: action.value,
     };
   }
 
