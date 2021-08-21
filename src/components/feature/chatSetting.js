@@ -10,6 +10,7 @@ const ChatSetting = ({
   deleteRoomChat,
   chats,
   cleanChat,
+  contactProfil,
 }) => {
   const [name, setName] = useState("");
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -33,9 +34,15 @@ const ChatSetting = ({
     setOpenConfirm(false);
     setChatSetting(false);
   };
-  console.log(roomId);
+  console.log(contactProfil);
   return (
-    <div className="openMenu shadow bg-body rounded d-flex justify-content-start align-items-center">
+    <div
+      className={
+        contactProfil === false
+          ? "openMenu shadow bg-body rounded d-flex justify-content-start align-items-center"
+          : "openmenugeser shadow bg-body rounded d-flex justify-content-start align-items-center"
+      }
+    >
       {openConfirm === false && (
         <div className="li">
           {roomId.destinationName === "" && (
@@ -158,6 +165,7 @@ const stateReducer = (state) => {
     roomId: state.roomId,
     listRoomChat: state.listRoomChat,
     chats: state.chats,
+    contactProfil: state.contactProfil,
   };
 };
 

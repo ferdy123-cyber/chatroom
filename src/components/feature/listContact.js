@@ -35,7 +35,7 @@ const ListContact = ({
   };
   console.log(listContacts);
   return (
-    <div className="contact listChat justify-content-center">
+    <div className="listChat justify-content-center">
       {listRoomChatContact.map((e) => {
         const filter = listContacts.filter(
           (val) => val.contact === e.destination

@@ -871,8 +871,9 @@ export const SendImage = (data) => (dispatch) => {
       "stateChanged",
       (snapshot) => {
         dispatch({ type: "contentImageLoading", value: true });
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress = parseInt(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
         console.log("Upload is " + progress + "% done");
         dispatch({ type: "progressImage", value: progress });
       },

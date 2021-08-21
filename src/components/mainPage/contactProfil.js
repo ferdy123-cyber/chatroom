@@ -59,11 +59,13 @@ const ContactProfil = ({
             >
               <img className="closeImg" src={close} alt="" />
             </div>
-            <img
-              className="profilImgShow"
-              src={roomId.account.imageProfil}
-              alt=""
-            />
+            <div className="openImage2">
+              <img
+                className="profilImgShow"
+                src={roomId.account.imageProfil}
+                alt=""
+              />
+            </div>
           </div>
         )}
       </div>

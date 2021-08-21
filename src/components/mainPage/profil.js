@@ -39,21 +39,57 @@ const Profil = ({
             width="30px"
           />
           <div className="borderImg">
-            {imageedit === false && profilLoading === false && (
-              <div onMouseOver={() => setImageEdit(true)}>
+            <div>
+              {e.imageProfil !== "" && (
+                <img
+                  className="profilImg shadow-sm"
+                  src={e.imageProfil}
+                  alt=""
+                />
+              )}
+              {e.imageProfil === "" && (
+                <img className="profilImg shadow-sm" src={avatar2} alt="" />
+              )}
+              <div
+                onMouseOut={() => setImageEdit(false)}
+                className="xyz d-flex flex-column align-items-center"
+              >
+                <label for="addFoto">
+                  {e.imageProfil !== "" && <p>UBAH FOTO</p>}
+                  {e.imageProfil === "" && <p>UNGGAH FOTO</p>}
+                </label>
+                <input
+                  className="d-none"
+                  id="addFoto"
+                  type="file"
+                  accept="image/x-png,image/gif,image/jpeg"
+                  onChange={(val) =>
+                    changeImage({
+                      file: val.target.files[0],
+                      id: e.id,
+                    })
+                  }
+                />
                 {e.imageProfil !== "" && (
-                  <img
-                    className="profilImg shadow-sm"
-                    src={e.imageProfil}
-                    alt=""
-                  />
+                  <p onClick={() => setOpenImg(true)}>LIHAT FOTO</p>
                 )}
-                {e.imageProfil === "" && (
-                  <img className="profilImg shadow-sm" src={avatar2} alt="" />
+                {e.imageProfil !== "" && (
+                  <p
+                    onClick={() =>
+                      deletePhoto({
+                        id: e.id,
+                        value: "",
+                        title: "imageProfil",
+                      })
+                    }
+                  >
+                    HAPUS FOTO
+                  </p>
                 )}
               </div>
-            )}
-            {imageedit === true && profilLoading === false && (
+            </div>
+
+            {/* {imageedit === true && profilLoading === false && (
               <div className="editImage profilImg shadow-sm align-items-center">
                 <div
                   onMouseOut={() => setImageEdit(false)}
@@ -92,7 +128,7 @@ const Profil = ({
                   )}
                 </div>
               </div>
-            )}
+            )} */}
 
             {profilLoading === true && (
               <div className="editImage profilImg shadow-sm align-items-center">
@@ -109,7 +145,9 @@ const Profil = ({
                 >
                   <img className="closeImg" src={close} alt="" />
                 </div>
-                <img className="profilImgShow" src={e.imageProfil} alt="" />
+                <div className="openImage2">
+                  <img className="profilImgShow" src={e.imageProfil} alt="" />
+                </div>
               </div>
             )}
           </div>

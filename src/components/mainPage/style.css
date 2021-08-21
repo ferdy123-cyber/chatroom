@@ -38,7 +38,6 @@
   width: 1450px;
   height: 700px;
   border-radius: 10px;
-
 }
 
 .ChatBox {
@@ -66,11 +65,9 @@
   background-color: white;
   border-radius: 10px;
   border: white;
-  width: 95%;
+  width: 100%;
   height: 50px;
   margin-bottom: -20px;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 .span1 {
@@ -106,13 +103,26 @@
   background-color: aquamarine;
 }
 
+.openmenugeser {
+  background-color: white;
+  width: 150px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 13vh;
+  margin-right: 22vw;
+  animation: animasiOpenMenu 0.4s ease;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
 .openMenu {
   background-color: white;
   width: 150px;
   position: fixed;
   top: 0;
   right: 0;
-  margin-top: 12vh;
+  margin-top: 13vh;
   margin-right: 7vw;
   animation: animasiOpenMenu 0.4s ease;
   font-size: 14px;
@@ -120,6 +130,12 @@
 }
 
 .openMenu .li {
+  width: 150px;
+  padding: 10px 5px;
+  animation: animasiOpenMenu 0.4s ease;
+}
+
+.openmenugeser .li {
   width: 150px;
   padding: 10px 5px;
   animation: animasiOpenMenu 0.4s ease;
@@ -171,11 +187,12 @@
   width: 95%;
   margin-left: 7px;
   margin-top: 20px;
+  background-color: aquamarine;
 }
 
 .listmap {
   margin-bottom: 8px;
-  margin-right: 5px;
+  margin-right: 0px;
 }
 
 .listView {
@@ -186,7 +203,6 @@
   align-items: center;
   cursor: pointer;
   padding-right: 10px;
-  margin-left: 5px;
 }
 
 .blackBackground {
@@ -233,12 +249,12 @@
 }
 
 .name1 {
+  margin-left: 5px;
   margin-top: -5px;
   max-height: 25px;
   font-weight: 700;
   overflow: hidden;
   color: rgba(0, 0, 0, 0.6);
-  margin-left: 5px;
 }
 
 .edtmrgnTop {
@@ -253,6 +269,14 @@
   max-height: 20px;
   color: rgba(0, 0, 0, 0.6);
 
+}
+
+.entahlah {
+  font-size: 13.2px;
+}
+
+.pEdit {
+ margin-left: 6px;
 }
 
 .imageTypeLastChat {
@@ -394,11 +418,10 @@ background-color: #42519b; */
 
 .myRoom {
   margin-right: 8px;
-  border-radius: 10px 0px 10px 10px;
   color: white;
   font-size: 17px;
   font-weight: 100;
-  border-radius: 0px 10px 10px 10px;
+  border-radius: 10px 0px 10px 10px;
   margin-left: 3px;
   padding: 5px 10px 0px 10px;
   max-width: 400px;
@@ -497,24 +520,46 @@ background-color: #42519b; */
 }
 
 .profil {
-  width: 100%;
-  margin-left: 20px;
   align-items: center;
   text-align: center;
-  padding: 5px;
+  margin-left: 10px;
   border-radius: 10px;
-  
+  position: relative;
 }
+
+
 
 .xyz{
   height: 100%;
   justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  padding: 5px;
+  margin: 50px 10px 10px 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 180px;
+  height: 180px;
+  transition: 0.3s ease-in;
+  transform: scale(0);
+  opacity: 0;
 }
+
+.xyz p {
+  color: white;
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
 
 .profilImg {
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 87%;
+  width: 180px;
   height: 180px;
   object-fit: contain;
   border-radius: 50%;
@@ -525,6 +570,7 @@ background-color: #42519b; */
 .openProfil {
   animation: animasiOpenProfil 0.3s ease;
   width: 100%;
+  background-color: white;
 }
 
 @keyframes animasiOpenProfil {
@@ -573,6 +619,11 @@ background-color: #42519b; */
   border-radius: 10px;
   margin-bottom: 25px;
 
+}
+
+.borderImg:hover .xyz {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .editImg {
@@ -793,8 +844,14 @@ background-color: #42519b; */
   align-items: center;
 }
 
+.openImage2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
 .profilImgShow {
-  margin-bottom: 3vw;
   min-height: 20vw;
   max-height: 42vw;
   align-items: center;
@@ -851,9 +908,11 @@ background-color: #42519b; */
 .closeProfil {
   opacity: 0.5;
   align-items: start;
-  margin-left: -190px;
   margin-top: 10px;
   cursor: pointer;
+  position: relative;
+  right: 40%;
+  
 }
 
 .contactProfilName {
@@ -1005,7 +1064,7 @@ background-color: rgba(0, 0, 0, 0.3)
 
 .chatContent3 {
   width: 99%;
-  height: 403px;
+  height: 410px;
   max-height: 500px;
   overflow: auto;
 }
@@ -1175,7 +1234,7 @@ margin-top: 3px;
   }
   .avatarAndName p {
     margin-top: 15px;
-    margin-left: 10px;
+    margin-left: 25px;
   }
   .avatarAndName .miniProfil {
     border-radius: 50%;
@@ -1295,9 +1354,14 @@ margin-top: 3px;
   }
   .left {
     padding-right: 0px;
+    width: 100%;
+    height: 100%;
   }
   .listView {
-    padding-right: 5px;
+    padding-right:0px;
+  }
+  .listView img {
+    margin-left: 0px;
   }
   .listView .name {
     width: 85%;
@@ -1309,6 +1373,8 @@ margin-top: 3px;
   /*  */
   .ChatBox {
     border-radius: 0px;
+    background-color: white;
+    margin-left: 0px;
   } 
   .confirm {
     background-color: white;
@@ -1361,6 +1427,9 @@ margin-top: 3px;
   }
   .listRoom {
     animation: animasichatview 0.6s ease;
+    margin-top: 0px;
+    width: 107.2%;
+    background-color: aqua;
   }
   @keyframes animasichatview {
     0% {
@@ -1371,5 +1440,76 @@ margin-top: 3px;
       opacity: 1;
     }
   }
+
   
+  .profil {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    margin-left: 0px;
+    border-radius: 10px;
+    
+  }
+  .profilImg {
+    width: 30vh;
+    height: 30vh;
+  }
+
+  .xyz {
+    width: 30vh;
+    height: 30vh;
+    margin: 55px auto;
+  }
+
+  .name1 {
+    margin-left: 0px;
+    margin-top: -5px;
+    max-height: 25px;
+    font-weight: 700;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .pEdit {
+    margin-left: 1px;
+   }
+
+   .profilImgShow {
+    min-width: 50%;
+    max-width: 100%;
+    max-height: 80vh;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .navbar {
+    height: 60px;
+    background-color: #5d72db;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .brand {
+    margin-left: 10px;
+  }
+
+  .iconBrand {
+    margin-right: 10px;
+  }
+
+  .iconBrand img {
+    margin-left: 15px;
+    cursor: pointer;
+  }
+
+  /* .newChatBtn {
+    background-color: white;
+    border-radius: 10px;
+    border: white;
+    width: 105%;
+    height: 50px;
+    margin-bottom: 0px;
+  } */
 }
+
