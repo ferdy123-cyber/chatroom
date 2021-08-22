@@ -2,7 +2,7 @@ import "../mainPage/style.css";
 import menuIcon from "../img/menu.png";
 import closeProfil from "../img/left-arrow.png";
 import avatar2 from "../img/user.png";
-import search from "../img/search.png";
+// import search from "../img/search.png";
 import iconVideo from "../img/play-button.png";
 import check1 from "../img/checkmark-512 (1).png";
 import check2 from "../img/checkmark-512.png";
@@ -11,7 +11,7 @@ import plus from "../img/plus.png";
 import send from "../img/send.png";
 import close from "../img/left-turn-arrow.png";
 import close2 from "../img/cancel.png";
-import noTelepone from "../img/vintage-telephone-call.png";
+// import noTelepone from "../img/vintage-telephone-call.png";
 import AutoScroll from "react-scrollable-feed";
 import ListContact from "../feature/listContact";
 import { useEffect, useState } from "react";
@@ -22,6 +22,7 @@ import Emoji from "../emojies";
 import downArrow from "../img/arrow-203-24.png";
 import downArrow2 from "../img/arrow-203-24 (1).png";
 import camera from "../img/photo-camera.png";
+import Chatsetting from "../feature/chatSetting";
 import {
   getContact,
   getUser,
@@ -39,6 +40,8 @@ import AddContact from "../feature/addcontact";
 import moment from "moment";
 import contactIcon from "../img/contacts-2-32.png";
 import addContactIcon from "../img/add-user-3-32.png";
+import play from "../img/play-button-28243.png";
+import ReactPlayer from "react-player";
 
 const PhoneChatRoom = ({
   getChats,
@@ -70,16 +73,21 @@ const PhoneChatRoom = ({
   progressImage,
   deleteChat,
   openChat,
+  searchInput,
+  setSearchInput,
   setOpenChat,
+  setChatSetting,
+  chatSetting,
 }) => {
-  console.log(contactProfil);
+  console.log(account);
   const [showmenu, setShowmenu] = useState(false);
   const [chatContent, setChatContent] = useState("");
   const [collapsChat, setCollapsChat] = useState("chatContent");
-  const [openChatOpt, setOpenChatOpt] = useState("");
   const [chatOpt, setChatOpt] = useState("");
   const [openImg, setOpenImg] = useState(false);
+  const [openVideo, setOpenVideo] = useState(false);
   const [image, setImage] = useState("");
+  const [video, setVideo] = useState("");
   const [openEmoji, setOpenEmoji] = useState(false);
   const [forwardChat, setForwardChat] = useState(false);
   const [forwardMessage, setForwardMessage] = useState({
@@ -89,10 +97,12 @@ const PhoneChatRoom = ({
   });
   const [openDelChat, setOpenDelChat] = useState(false);
   const [delId, setDelId] = useState({});
+  const [param, setParam] = useState("");
 
   const hideMenu = () => {
-    if (showmenu === true) {
+    if (showmenu === true || chatSetting === true) {
       setShowmenu(false);
+      setChatSetting(false);
     }
   };
   useEffect(() => {
@@ -156,6 +166,11 @@ const PhoneChatRoom = ({
     setImage(url);
   };
 
+  const functionOpenVideo = (url) => {
+    setOpenVideo(true);
+    setVideo(url);
+  };
+
   const openForward = (data) => {
     setForwardChat(true);
     setOpenEmoji(false);
@@ -166,6 +181,7 @@ const PhoneChatRoom = ({
       chat: data.chat,
       type: data.type,
       forwardSenderId: data.forwardSenderId,
+      forwardChatId: data.forwardChatId,
     });
   };
 
@@ -204,19 +220,39 @@ const PhoneChatRoom = ({
       {openImg === true && (
         <div className="openImg position-fixed">
           <div
-            className="backOpenImage d-flex justify-content-end"
+            className="d-flex justify-content-end"
             onClick={() => setOpenImg(false)}
           >
             <img className="closeImg" src={close} alt="" />
           </div>
-          <div className="OpenImage">
-            <img className="profilImgShowPhone" src={image} alt="" />
+          <div className="openImage2">
+            <img className="profilImgShow" src={image} alt="" />
+          </div>
+        </div>
+      )}
+      {openVideo === true && (
+        <div className="openImg position-fixed">
+          <div
+            className="d-flex justify-content-end"
+            onClick={() => setOpenVideo(false)}
+          >
+            <img className="closeImg" src={close} alt="" />
+          </div>
+          <div className="openImage2">
+            <ReactPlayer
+              playing
+              width="100%"
+              height="180vh"
+              className="profilVideoShow"
+              url={video}
+              controls
+            />
           </div>
         </div>
       )}
       {assetLoading === true && <div>loading</div>}
       {assetLoading === false && (
-        <div className="row main d-flex justify-content-center">
+        <div className="main d-flex justify-content-center">
           {contactProfil === false && (
             <div
               className="ChatBox d-flex justify-content-center"
@@ -226,15 +262,26 @@ const PhoneChatRoom = ({
                 <div className="listRoom d-flex align-items-center">
                   <div className="left text-center">
                     <div className="navbar d-flex justify-content-between align-items-center shadow-sm ">
-                      <div className="brand">Chatlite</div>
+                      {showListContact === false && (
+                        <div className="brand">Chatlite</div>
+                      )}
+                      {showListContact === true && (
+                        <div className="brand">
+                          {/* <img src={closeProfil} width="20px" alt="" /> */}
+                          Pilih kontak
+                        </div>
+                      )}
                       <div className="iconBrand">
-                        <img
-                          onClick={() => showContactProfil("myProfil")}
-                          src={avatar2}
-                          alt=""
-                          width="32px"
-                          height="32px"
-                        />
+                        {account.map((e) => {
+                          return (
+                            <img
+                              className="profilNavbar"
+                              onClick={() => showContactProfil("myProfil")}
+                              src={e.imageProfil}
+                              alt=""
+                            />
+                          );
+                        })}
                         <img
                           onClick={() => showContact(true)}
                           src={contactIcon}
@@ -243,6 +290,7 @@ const PhoneChatRoom = ({
                           height="25px"
                         />
                         <img
+                          onClick={() => showAddContactMenu(true)}
                           src={addContactIcon}
                           alt=""
                           width="25px"
@@ -250,39 +298,10 @@ const PhoneChatRoom = ({
                         />
                       </div>
                     </div>
-
-                    <button className="newChatBtn d-flex justify-content-center align-items-center">
-                      <div
-                        onClick={() => showContactProfil("myProfil")}
-                        className="span2"
-                      >
-                        Profil
-                      </div>
-                      <div
-                        onClick={() => showContact(true)}
-                        className="span1 border-start border-end border-dark"
-                      >
-                        <img
-                          onClick={() => hideContactMenu(false)}
-                          src={noTelepone}
-                          width="20px"
-                          alt="plusIcon"
-                        />
-                      </div>
-                      <div
-                        onClick={() => showAddContactMenu(true)}
-                        className="entahlah span2"
-                      >
-                        Tambah kontak
-                      </div>
-                    </button>
                     {showAddContact === true && <AddContact />}
                     <div className="row menuChat d-flex justify-content-between">
-                      {showListContact === false && (
-                        <p className="col-5">Chats</p>
-                      )}
                       {showListContact === true && (
-                        <p className="col-5">
+                        <p className="col-3">
                           <img
                             onClick={() => showContact(false)}
                             className="backListContact"
@@ -297,8 +316,14 @@ const PhoneChatRoom = ({
                       <div className="openMenu shadow p-3 mb-5 bg-body rounded"></div>
                     )}
                     {showListContact === true && (
-                      <input placeholder="Cari kontak" className="inpt" />
+                      <input
+                        placeholder="Cari kontak"
+                        className="inpt"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                      />
                     )}
+                    {showListContact === true && <ListContact />}
                     {showListContact === false && listRoomChat.length !== 0 && (
                       <div className="listChat justify-content-center">
                         {listRoomChat.map((e, index) => {
@@ -442,15 +467,64 @@ const PhoneChatRoom = ({
                         </button>
                       </div>
                     )}
-
-                    {showListContact === true && <ListContact />}
                   </div>
                 </div>
               )}
               {openChat === true && (
-                <div className="chatView col-12">
-                  <div className="contactView d-flex justify-content-between border-bottom border-2">
-                    <div className="avatarAndName d-flex justify-content-start align-items-center col-11">
+                <div className="chatView">
+                  <div className="contactView d-flex align-items-center border-bottom border-2">
+                    <div
+                      className="closeChat"
+                      onClick={() => setOpenChat(false)}
+                    >
+                      <img src={closeProfil} width="23px" alt="" />
+                    </div>
+                    <div
+                      onClick={() => showContactProfil("contactProfil")}
+                      className="infochat d-flex align-items-center"
+                    >
+                      {roomId.account.imageProfil !== "" && (
+                        <img
+                          className="miniProfil"
+                          src={roomId.account.imageProfil}
+                          alt="avatar"
+                        />
+                      )}
+                      {roomId.account.imageProfil === "" && (
+                        <img
+                          className="miniProfil"
+                          src={avatar2}
+                          alt="avatar"
+                        />
+                      )}
+                      <div>
+                        {roomId.destinationName !== "" && (
+                          <div
+                            onClick={() => showContactProfil("contactProfil")}
+                            className=""
+                          >
+                            {roomId.destinationName}
+                          </div>
+                        )}
+                        {roomId.destinationName === "" && (
+                          <div
+                            onClick={() => showContactProfil("contactProfil")}
+                            className=""
+                          >
+                            {roomId.destination}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="chatMenu">
+                      <img
+                        onClick={() => setChatSetting(true)}
+                        src={menuIcon}
+                        width="18px"
+                        alt="search"
+                      />
+                    </div>
+                    {/* <div className="avatarAndName d-flex justify-content-start align-items-center col-11">
                       <div
                         className="closeChat"
                         onClick={() => setOpenChat(false)}
@@ -492,12 +566,12 @@ const PhoneChatRoom = ({
                     </div>
                     <div className="searchChatButton d-flex justify-content-end align-items-center col-1">
                       <img
-                        // onClick={() => setChatSetting(true)}
+                        onClick={() => setChatSetting(true)}
                         src={menuIcon}
                         width="18px"
                         alt="search"
                       />
-                    </div>
+                    </div> */}
                   </div>
                   <div className={collapsChat}>
                     <AutoScroll>
@@ -505,20 +579,26 @@ const PhoneChatRoom = ({
                         .filter((val) => val.chat !== "")
                         .map((e, index) => {
                           return (
-                            <div>
+                            <div id={e.chat + e.timeStamp + "2"}>
                               {e.senderId !== roomId.userId && (
                                 <div className="chatAndProfil d-flex justify-content-start">
                                   <div
-                                    id={e.id}
-                                    onMouseOver={() => setOpenChatOpt(e.id)}
-                                    onMouseOut={() => setOpenChatOpt("")}
-                                    className="content shadow-sm"
+                                    className={
+                                      e.chat + e.timeStamp === param
+                                        ? "darkBg content shadow-sm"
+                                        : "content shadow-sm"
+                                    }
                                   >
                                     {e.type === "text" && (
                                       <p className="cht">{e.chat}</p>
                                     )}
                                     {e.type === "forwardText-replyText" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -535,10 +615,15 @@ const PhoneChatRoom = ({
                                           <p className="">{e.forwardChat}</p>
                                         </div>
                                         <p className="cht">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardText-replyEmoji" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -555,10 +640,15 @@ const PhoneChatRoom = ({
                                           <p className="">{e.forwardChat}</p>
                                         </div>
                                         <p className="emot">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardImage-replyText" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText d-flex justify-content-between align-items-center">
                                           <div>
                                             {localStorage.getItem("chatId") ===
@@ -589,14 +679,58 @@ const PhoneChatRoom = ({
                                           />
                                         </div>
                                         <p className="cht">{e.chat}</p>
-                                      </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyText" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <p className="cht">{e.chat}</p>
+                                      </a>
                                     )}
 
                                     {e.type === "emoji" && (
                                       <p className="emot cht">{e.chat}</p>
                                     )}
                                     {e.type === "forwardEmoji-replyText" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -615,10 +749,15 @@ const PhoneChatRoom = ({
                                           </p>
                                         </div>
                                         <p className="cht">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardEmoji-replyEmoji" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -637,10 +776,15 @@ const PhoneChatRoom = ({
                                           </p>
                                         </div>
                                         <p className="emot">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardImage-replyEmoji" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText d-flex justify-content-between align-items-center">
                                           <div>
                                             {localStorage.getItem("chatId") ===
@@ -671,7 +815,46 @@ const PhoneChatRoom = ({
                                           />
                                         </div>
                                         <p className="emot">{e.chat}</p>
-                                      </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyEmoji" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <p className="emot">{e.chat}</p>
+                                      </a>
                                     )}
                                     {e.type === "image" && (
                                       <img
@@ -682,7 +865,12 @@ const PhoneChatRoom = ({
                                       />
                                     )}
                                     {e.type === "forwardText-replyImage" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -708,11 +896,16 @@ const PhoneChatRoom = ({
                                             alt=""
                                           />
                                         </div>
-                                      </div>
+                                      </a>
                                     )}
 
                                     {e.type === "forwardEmoji-replyImage" && (
-                                      <div>
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -740,11 +933,16 @@ const PhoneChatRoom = ({
                                             alt=""
                                           />
                                         </div>
-                                      </div>
+                                      </a>
                                     )}
 
                                     {e.type === "forwardImage-replyImage" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText d-flex justify-content-between align-items-center">
                                           <div>
                                             {localStorage.getItem("chatId") ===
@@ -784,10 +982,297 @@ const PhoneChatRoom = ({
                                             alt=""
                                           />
                                         </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyImage" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="imageField">
+                                          <img
+                                            onClick={() =>
+                                              functionOpenImg(e.chat)
+                                            }
+                                            className="contentImg"
+                                            src={e.chat}
+                                            alt=""
+                                          />
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "video" && (
+                                      <div
+                                        className="play"
+                                        onClick={() =>
+                                          functionOpenVideo(e.chat)
+                                        }
+                                      >
+                                        <video
+                                          className="contentImg"
+                                          src={e.chat}
+                                        />
+                                        <div className="coverPlay">
+                                          <img src={play} alt="" width="40px" />
+                                        </div>
                                       </div>
                                     )}
+                                    {e.type === "forwardText-replyVideo" && (
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
+                                        <div className="contentForwardText">
+                                          {localStorage.getItem("chatId") ===
+                                            e.forwardSenderId && <p>Anda</p>}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName !== "" && (
+                                              <p>{roomId.destinationName}</p>
+                                            )}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName === "" && (
+                                              <p>{roomId.destination}</p>
+                                            )}
+                                          <p>{e.forwardChat}</p>
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
 
-                                    {openChatOpt !== e.id && chatOpt !== e.id && (
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardEmoji-replyVideo" && (
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
+                                        <div className="contentForwardText">
+                                          {localStorage.getItem("chatId") ===
+                                            e.forwardSenderId && <p>Anda</p>}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName !== "" && (
+                                              <p>{roomId.destinationName}</p>
+                                            )}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName === "" && (
+                                              <p>{roomId.destination}</p>
+                                            )}
+                                          <p className="emot">
+                                            {e.forwardChat}
+                                          </p>
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardImage-replyVideo" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={camera}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Foto
+                                            </p>
+                                          </div>
+                                          <img
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyVideo" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {chatOpt !== e.id && (
+                                      <div
+                                        onClick={() => setChatOpt(e.id)}
+                                        className="timeAndStatus d-flex align-items-center"
+                                      >
+                                        <img
+                                          className="downArrow"
+                                          src={downArrow2}
+                                          alt="check"
+                                          width="12px"
+                                          height="12px"
+                                        />
+                                        <div className="blabla widhtP">
+                                          <p className="time">{e.time}</p>
+                                        </div>
+                                      </div>
+                                    )}
+                                    {/* {openChatOpt !== e.id && chatOpt !== e.id && (
                                       <div className="timeAndStatus d-flex justify-content-end">
                                         <p className="time">{e.time}</p>
                                       </div>
@@ -803,7 +1288,7 @@ const PhoneChatRoom = ({
                                           height="13px"
                                         />
                                       </div>
-                                    )}
+                                    )} */}
                                     {chatOpt === e.id && (
                                       <div className="d-flex justify-content-center optChat">
                                         <p
@@ -813,6 +1298,8 @@ const PhoneChatRoom = ({
                                               chat: e.chat,
                                               type: e.type,
                                               forwardSenderId: e.senderId,
+                                              forwardChatId:
+                                                e.chat + e.timeStamp,
                                             })
                                           }
                                         >
@@ -842,15 +1329,22 @@ const PhoneChatRoom = ({
                               {e.senderId === roomId.userId && (
                                 <div className="chatAndProfil d-flex justify-content-end">
                                   <div
-                                    onMouseOver={() => setOpenChatOpt(e.id)}
-                                    onMouseOut={() => setOpenChatOpt("")}
-                                    className="myRoom content shadow-sm"
+                                    className={
+                                      e.chat + e.timeStamp === param
+                                        ? "darkBg2 myRoom content shadow-sm"
+                                        : "blueBg myRoom content shadow-sm"
+                                    }
                                   >
                                     {e.type === "text" && (
                                       <p className="cht">{e.chat}</p>
                                     )}
                                     {e.type === "forwardText-replyText" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -867,10 +1361,15 @@ const PhoneChatRoom = ({
                                           <p className="">{e.forwardChat}</p>
                                         </div>
                                         <p className="cht">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardText-replyEmoji" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -887,10 +1386,15 @@ const PhoneChatRoom = ({
                                           <p className="">{e.forwardChat}</p>
                                         </div>
                                         <p className="emot">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardImage-replyText" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText d-flex justify-content-between align-items-center">
                                           <div>
                                             {localStorage.getItem("chatId") ===
@@ -921,13 +1425,57 @@ const PhoneChatRoom = ({
                                           />
                                         </div>
                                         <p className="cht">{e.chat}</p>
-                                      </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyText" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <p className="cht">{e.chat}</p>
+                                      </a>
                                     )}
                                     {e.type === "emoji" && (
                                       <p className="emot cht">{e.chat}</p>
                                     )}
                                     {e.type === "forwardEmoji-replyText" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -946,10 +1494,15 @@ const PhoneChatRoom = ({
                                           </p>
                                         </div>
                                         <p className="cht">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardEmoji-replyEmoji" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -968,10 +1521,15 @@ const PhoneChatRoom = ({
                                           </p>
                                         </div>
                                         <p className="emot">{e.chat}</p>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardImage-replyEmoji" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText d-flex justify-content-between align-items-center">
                                           <div>
                                             {localStorage.getItem("chatId") ===
@@ -1002,7 +1560,46 @@ const PhoneChatRoom = ({
                                           />
                                         </div>
                                         <p className="emot">{e.chat}</p>
-                                      </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyEmoji" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <p className="emot">{e.chat}</p>
+                                      </a>
                                     )}
                                     {e.type === "image" && (
                                       <img
@@ -1013,7 +1610,12 @@ const PhoneChatRoom = ({
                                       />
                                     )}
                                     {e.type === "forwardText-replyImage" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -1039,10 +1641,15 @@ const PhoneChatRoom = ({
                                             alt=""
                                           />
                                         </div>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardEmoji-replyImage" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText">
                                           {localStorage.getItem("chatId") ===
                                             e.forwardSenderId && <p>Anda</p>}
@@ -1070,10 +1677,15 @@ const PhoneChatRoom = ({
                                             alt=""
                                           />
                                         </div>
-                                      </div>
+                                      </a>
                                     )}
                                     {e.type === "forwardImage-replyImage" && (
-                                      <div>
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
                                         <div className="contentForwardText d-flex justify-content-between align-items-center">
                                           <div>
                                             {localStorage.getItem("chatId") ===
@@ -1113,12 +1725,293 @@ const PhoneChatRoom = ({
                                             alt=""
                                           />
                                         </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyImage" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="imageField">
+                                          <img
+                                            onClick={() =>
+                                              functionOpenImg(e.chat)
+                                            }
+                                            className="contentImg"
+                                            src={e.chat}
+                                            alt=""
+                                          />
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "video" && (
+                                      <div
+                                        className="play"
+                                        onClick={() =>
+                                          functionOpenVideo(e.chat)
+                                        }
+                                      >
+                                        <video
+                                          className="contentImg"
+                                          src={e.chat}
+                                        />
+                                        <div>
+                                          <img src={play} alt="" width="40px" />
+                                        </div>
                                       </div>
                                     )}
-
-                                    {openChatOpt !== e.id && chatOpt !== e.id && (
-                                      <div className="timeAndStatus d-flex justify-content-end">
-                                        <p className="time">{e.time}</p>
+                                    {e.type === "forwardText-replyVideo" && (
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
+                                        <div className="contentForwardText">
+                                          {localStorage.getItem("chatId") ===
+                                            e.forwardSenderId && <p>Anda</p>}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName !== "" && (
+                                              <p>{roomId.destinationName}</p>
+                                            )}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName === "" && (
+                                              <p>{roomId.destination}</p>
+                                            )}
+                                          <p>{e.forwardChat}</p>
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardEmoji-replyVideo" && (
+                                      <a
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                        href={"#" + e.forwardChatId + "2"}
+                                      >
+                                        <div className="contentForwardText">
+                                          {localStorage.getItem("chatId") ===
+                                            e.forwardSenderId && <p>Anda</p>}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName !== "" && (
+                                              <p>{roomId.destinationName}</p>
+                                            )}
+                                          {localStorage.getItem("chatId") !==
+                                            e.forwardSenderId &&
+                                            roomId.destinationName === "" && (
+                                              <p>{roomId.destination}</p>
+                                            )}
+                                          <p className="emot">
+                                            {e.forwardChat}
+                                          </p>
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardImage-replyVideo" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={camera}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Foto
+                                            </p>
+                                          </div>
+                                          <img
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {e.type === "forwardVideo-replyVideo" && (
+                                      <a
+                                        href={"#" + e.forwardChatId + "2"}
+                                        onClick={() =>
+                                          setParam(e.forwardChatId)
+                                        }
+                                      >
+                                        <div className="contentForwardText d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {localStorage.getItem("chatId") ===
+                                              e.forwardSenderId && <p>Anda</p>}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName !== "" && (
+                                                <p>{roomId.destinationName}</p>
+                                              )}
+                                            {localStorage.getItem("chatId") !==
+                                              e.forwardSenderId &&
+                                              roomId.destinationName === "" && (
+                                                <p>{roomId.destination}</p>
+                                              )}
+                                            <p>
+                                              <img
+                                                src={iconVideo}
+                                                width="14px"
+                                                alt=""
+                                              />
+                                              Video
+                                            </p>
+                                          </div>
+                                          <video
+                                            className="imageForward"
+                                            src={e.forwardChat}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="imageField">
+                                          <div
+                                            className="play"
+                                            onClick={() =>
+                                              functionOpenVideo(e.chat)
+                                            }
+                                          >
+                                            <video
+                                              className="contentImg"
+                                              src={e.chat}
+                                            />
+                                            <div>
+                                              <img
+                                                src={play}
+                                                alt=""
+                                                width="40px"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    )}
+                                    {chatOpt !== e.id && (
+                                      <div
+                                        onClick={() => setChatOpt(e.id)}
+                                        className="timeAndStatus d-flex align-items-center"
+                                      >
+                                        <img
+                                          className="downArrow"
+                                          src={downArrow}
+                                          alt="check"
+                                          width="15px"
+                                          height="13px"
+                                        />
+                                        <div className="widhtP">
+                                          <p className="time">{e.time}</p>
+                                        </div>
                                         {e.status === "send" && (
                                           <img
                                             src={check2}
@@ -1137,18 +2030,6 @@ const PhoneChatRoom = ({
                                         )}
                                       </div>
                                     )}
-                                    {openChatOpt === e.id && chatOpt !== e.id && (
-                                      <div className="timeAndStatus d-flex justify-content-end">
-                                        <img
-                                          onClick={() => setChatOpt(e.id)}
-                                          className="downArrow"
-                                          src={downArrow}
-                                          alt="check"
-                                          width="15px"
-                                          height="13px"
-                                        />
-                                      </div>
-                                    )}
                                     {chatOpt === e.id && (
                                       <div className="d-flex justify-content-center optChat">
                                         <p
@@ -1158,6 +2039,8 @@ const PhoneChatRoom = ({
                                               chat: e.chat,
                                               type: e.type,
                                               forwardSenderId: e.senderId,
+                                              forwardChatId:
+                                                e.chat + e.timeStamp,
                                             })
                                           }
                                         >
@@ -1189,7 +2072,7 @@ const PhoneChatRoom = ({
                         })}
                       {contentImageLoading === true && (
                         <div className="chatAndProfil d-flex justify-content-end">
-                          <div className="myRoom content shadow-sm">
+                          <div className="blueBg myRoom content shadow-sm">
                             {" "}
                             <div
                               className="contentImg d-flex justify-content-center align-items-center"
@@ -1204,7 +2087,7 @@ const PhoneChatRoom = ({
                               </div>
                             </div>
                             <p className="text-center progresText">
-                              {progressImage}%
+                              {progressImage} %
                             </p>
                           </div>
                         </div>
@@ -1213,11 +2096,12 @@ const PhoneChatRoom = ({
                   </div>
 
                   {forwardChat === true && (
-                    <div className="forwardInput shadow-sm d-flex justify-content-between align-items-center">
+                    <div className="forwardInput shadow-sm d-flex align-items-center">
                       {(forwardMessage.type === "text" ||
                         forwardMessage.type === "forwardText-replyText" ||
                         forwardMessage.type === "forwardImage-replyText" ||
-                        forwardMessage.type === "forwardEmoji-replyText") && (
+                        forwardMessage.type === "forwardEmoji-replyText" ||
+                        forwardMessage.type === "forwardVideo-replyText") && (
                         <div className="contentForward">
                           {forwardMessage.name !== "" && (
                             <p className="forwardName">
@@ -1235,7 +2119,8 @@ const PhoneChatRoom = ({
                       {(forwardMessage.type === "emoji" ||
                         forwardMessage.type === "forwardText-replyEmoji" ||
                         forwardMessage.type === "forwardEmoji-replyEmoji" ||
-                        forwardMessage.type === "forwardImage-replyEmoji") && (
+                        forwardMessage.type === "forwardImage-replyEmoji" ||
+                        forwardMessage.type === "forwardVideo-replyEmoji") && (
                         <div className="contentForward">
                           {forwardMessage.name !== "" && (
                             <p className="forwardName">
@@ -1255,7 +2140,8 @@ const PhoneChatRoom = ({
                       {(forwardMessage.type === "image" ||
                         forwardMessage.type === "forwardText-replyImage" ||
                         forwardMessage.type === "forwardEmoji-replyImage" ||
-                        forwardMessage.type === "forwardImage-replyImage") && (
+                        forwardMessage.type === "forwardImage-replyImage" ||
+                        forwardMessage.type === "forwardVideo-replyImage") && (
                         <div className="contentForward d-flex justify-content-between align-items-center">
                           <div>
                             {forwardMessage.name !== "" && (
@@ -1278,6 +2164,40 @@ const PhoneChatRoom = ({
                           </div>
                           <div>
                             <img
+                              className="forwardImg"
+                              src={forwardMessage.chat}
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {(forwardMessage.type === "video" ||
+                        forwardMessage.type === "forwardText-replyVideo" ||
+                        forwardMessage.type === "forwardEmoji-replyVideo" ||
+                        forwardMessage.type === "forwardImage-replyVideo" ||
+                        forwardMessage.type === "forwardVideo-replyVideo") && (
+                        <div className="contentForward d-flex justify-content-between align-items-center">
+                          <div>
+                            {forwardMessage.name !== "" && (
+                              <p className="forwardName">
+                                <b>{forwardMessage.name}</b>
+                              </p>
+                            )}
+                            {forwardMessage.name === "" && (
+                              <p className="forwardName">
+                                <b>{roomId.destination}</b>
+                              </p>
+                            )}
+                            <img
+                              className="cameraImg"
+                              src={iconVideo}
+                              alt=""
+                              width="14px"
+                            />
+                            <span className="forwardtext">Video</span>
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <video
                               className="forwardImg"
                               src={forwardMessage.chat}
                               alt=""
@@ -1326,6 +2246,7 @@ const PhoneChatRoom = ({
                                     forwardChat: "",
                                     forwardName: "",
                                     forwardSenderId: "",
+                                    forwardChatId: "",
                                   })
                                 }
                                 className="col"
@@ -1340,8 +2261,9 @@ const PhoneChatRoom = ({
                         (forwardMessage.type === "image" ||
                           forwardMessage.type === "forwardEmoji-replyImage" ||
                           forwardMessage.type === "forwardText-replyImage" ||
+                          forwardMessage.type === "forwardImage-replyImage" ||
                           forwardMessage.type ===
-                            "forwardImage-replyImage") && (
+                            "forwardVideo-replyImage") && (
                           <div className="emojiBox row d-flex justify-content-center">
                             {Emoji.map((e) => {
                               return (
@@ -1362,6 +2284,8 @@ const PhoneChatRoom = ({
                                       forwardName: forwardMessage.name,
                                       forwardSenderId:
                                         forwardMessage.forwardSenderId,
+                                      forwardChatId:
+                                        forwardMessage.forwardChatId,
                                     })
                                   }
                                   className="col"
@@ -1376,7 +2300,8 @@ const PhoneChatRoom = ({
                         (forwardMessage.type === "text" ||
                           forwardMessage.type === "forwardText-replyText" ||
                           forwardMessage.type === "forwardEmoji-replyText" ||
-                          forwardMessage.type === "forwardImage-replyText") && (
+                          forwardMessage.type === "forwardImage-replyText" ||
+                          forwardMessage.type === "forwardVideo-replyText") && (
                           <div className="emojiBox row d-flex justify-content-center">
                             {Emoji.map((e) => {
                               console.log(forwardMessage.type);
@@ -1398,6 +2323,8 @@ const PhoneChatRoom = ({
                                       forwardName: forwardMessage.name,
                                       forwardSenderId:
                                         forwardMessage.forwardSenderId,
+                                      forwardChatId:
+                                        forwardMessage.forwardChatId,
                                     })
                                   }
                                   className="col"
@@ -1412,8 +2339,9 @@ const PhoneChatRoom = ({
                         (forwardMessage.type === "emoji" ||
                           forwardMessage.type === "forwardEmoji-replyEmoji" ||
                           forwardMessage.type === "forwardText-replyEmoji" ||
+                          forwardMessage.type === "forwardImage-replyEmoji" ||
                           forwardMessage.type ===
-                            "forwardImage-replyEmoji") && (
+                            "forwardVideo-replyEmoji") && (
                           <div className="emojiBox row d-flex justify-content-center">
                             {Emoji.map((e) => {
                               return (
@@ -1434,6 +2362,47 @@ const PhoneChatRoom = ({
                                       forwardName: forwardMessage.name,
                                       forwardSenderId:
                                         forwardMessage.forwardSenderId,
+                                      forwardChatId:
+                                        forwardMessage.forwardChatId,
+                                    })
+                                  }
+                                  className="col"
+                                >
+                                  {e.emoji}
+                                </p>
+                              );
+                            })}
+                          </div>
+                        )}
+                      {forwardChat === true &&
+                        (forwardMessage.type === "video" ||
+                          forwardMessage.type === "forwardEmoji-replyVideo" ||
+                          forwardMessage.type === "forwardText-replyVideo" ||
+                          forwardMessage.type === "forwardImage-replyVideo" ||
+                          forwardMessage.type ===
+                            "forwardVideo-replyVideo") && (
+                          <div className="emojiBox row d-flex justify-content-center">
+                            {Emoji.map((e) => {
+                              return (
+                                <p
+                                  onClick={() =>
+                                    Send({
+                                      chat: e.emoji,
+                                      userId: roomId.userId,
+                                      destinationId: roomId.destinationUserId,
+                                      myRoomId: roomId.myRoomId,
+                                      type: "forwardVideo-replyEmoji",
+                                      destinationRoomId:
+                                        roomId.destinationRoomId,
+                                      time: moment().format("HH:mm"),
+                                      timeStamp:
+                                        moment().format("YYYYMMDDhhmmss"),
+                                      forwardChat: forwardMessage.chat,
+                                      forwardName: forwardMessage.name,
+                                      forwardSenderId:
+                                        forwardMessage.forwardSenderId,
+                                      forwardChatId:
+                                        forwardMessage.forwardChatId,
                                     })
                                   }
                                   className="col"
@@ -1515,6 +2484,7 @@ const PhoneChatRoom = ({
                             forwardChat: "",
                             forwardName: "",
                             forwardSenderId: "",
+                            forwardChatId: "",
                           })
                         }
                       />
@@ -1523,7 +2493,8 @@ const PhoneChatRoom = ({
                       (forwardMessage.type === "text" ||
                         forwardMessage.type === "forwardText-replyText" ||
                         forwardMessage.type === "forwardEmoji-replyText" ||
-                        forwardMessage.type === "forwardImage-replyText") && (
+                        forwardMessage.type === "forwardImage-replyText" ||
+                        forwardMessage.type === "forwardVideo-replyText") && (
                         <input
                           className="display-none"
                           type="file"
@@ -1542,6 +2513,7 @@ const PhoneChatRoom = ({
                               forwardChat: forwardMessage.chat,
                               forwardName: forwardMessage.name,
                               forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
                             })
                           }
                         />
@@ -1550,7 +2522,8 @@ const PhoneChatRoom = ({
                       (forwardMessage.type === "emoji" ||
                         forwardMessage.type === "forwardText-replyEmoji" ||
                         forwardMessage.type === "forwardEmoji-replyEmoji" ||
-                        forwardMessage.type === "forwardImage-replyEmoji") && (
+                        forwardMessage.type === "forwardImage-replyEmoji" ||
+                        forwardMessage.type === "forwardVideo-replyEmoji") && (
                         <input
                           className="display-none"
                           type="file"
@@ -1569,6 +2542,7 @@ const PhoneChatRoom = ({
                               forwardChat: forwardMessage.chat,
                               forwardName: forwardMessage.name,
                               forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
                             })
                           }
                         />
@@ -1577,7 +2551,8 @@ const PhoneChatRoom = ({
                       (forwardMessage.type === "image" ||
                         forwardMessage.type === "forwardText-replyImage" ||
                         forwardMessage.type === "forwardEmoji-replyImage" ||
-                        forwardMessage.type === "forwardImage-replyImage") && (
+                        forwardMessage.type === "forwardImage-replyImage" ||
+                        forwardMessage.type === "forwardVideo-replyImage") && (
                         <input
                           className="display-none"
                           type="file"
@@ -1596,12 +2571,190 @@ const PhoneChatRoom = ({
                               forwardChat: forwardMessage.chat,
                               forwardName: forwardMessage.name,
                               forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
+                            })
+                          }
+                        />
+                      )}
+                    {forwardChat === true &&
+                      (forwardMessage.type === "video" ||
+                        forwardMessage.type === "forwardText-replyVideo" ||
+                        forwardMessage.type === "forwardEmoji-replyVideo" ||
+                        forwardMessage.type === "forwardImage-replyVideo" ||
+                        forwardMessage.type === "forwardVideo-replyVideo") && (
+                        <input
+                          className="display-none"
+                          type="file"
+                          id="addimgChat2"
+                          accept="image/x-png,image/gif,image/jpeg"
+                          onChange={(val) =>
+                            sendImage({
+                              file: val.target.files[0],
+                              userId: roomId.userId,
+                              destinationId: roomId.destinationUserId,
+                              myRoomId: roomId.myRoomId,
+                              type: "forwardVideo-replyImage",
+                              destinationRoomId: roomId.destinationRoomId,
+                              time: moment().format("HH:mm"),
+                              timeStamp: moment().format("YYYYMMDDhhmmss"),
+                              forwardChat: forwardMessage.chat,
+                              forwardName: forwardMessage.name,
+                              forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
+                            })
+                          }
+                        />
+                      )}
+                    <label for="addVideo2">
+                      <img
+                        className="addImgChat"
+                        src={plus}
+                        width="30px"
+                        height="30px"
+                        alt="emotIcon"
+                      />
+                    </label>
+                    {forwardChat === false && (
+                      <input
+                        className="display-none"
+                        type="file"
+                        id="addVideo2"
+                        accept="video/mp4,video/webm,video/ogg"
+                        onChange={(val) =>
+                          sendImage({
+                            file: val.target.files[0],
+                            userId: roomId.userId,
+                            destinationId: roomId.destinationUserId,
+                            myRoomId: roomId.myRoomId,
+                            type: "video",
+                            destinationRoomId: roomId.destinationRoomId,
+                            time: moment().format("HH:mm"),
+                            timeStamp: moment().format("YYYYMMDDhhmmss"),
+                            forwardChat: "",
+                            forwardName: "",
+                            forwardSenderId: "",
+                            forwardChatId: "",
+                          })
+                        }
+                      />
+                    )}
+                    {forwardChat === true &&
+                      (forwardMessage.type === "text" ||
+                        forwardMessage.type === "forwardText-replyText" ||
+                        forwardMessage.type === "forwardEmoji-replyText" ||
+                        forwardMessage.type === "forwardImage-replyText" ||
+                        forwardMessage.type === "forwardVideo-replyText") && (
+                        <input
+                          className="display-none"
+                          type="file"
+                          id="addVideo2"
+                          accept="video/mp4,video/webm,video/ogg"
+                          onChange={(val) =>
+                            sendImage({
+                              file: val.target.files[0],
+                              userId: roomId.userId,
+                              destinationId: roomId.destinationUserId,
+                              myRoomId: roomId.myRoomId,
+                              type: "forwardText-replyVideo",
+                              destinationRoomId: roomId.destinationRoomId,
+                              time: moment().format("HH:mm"),
+                              timeStamp: moment().format("YYYYMMDDhhmmss"),
+                              forwardChat: forwardMessage.chat,
+                              forwardName: forwardMessage.name,
+                              forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
+                            })
+                          }
+                        />
+                      )}
+                    {forwardChat === true &&
+                      (forwardMessage.type === "emoji" ||
+                        forwardMessage.type === "forwardText-replyEmoji" ||
+                        forwardMessage.type === "forwardEmoji-replyEmoji" ||
+                        forwardMessage.type === "forwardImage-replyEmoji" ||
+                        forwardMessage.type === "forwardVideo-replyEmoji") && (
+                        <input
+                          className="display-none"
+                          type="file"
+                          id="addVideo2"
+                          accept="video/mp4,video/webm,video/ogg"
+                          onChange={(val) =>
+                            sendImage({
+                              file: val.target.files[0],
+                              userId: roomId.userId,
+                              destinationId: roomId.destinationUserId,
+                              myRoomId: roomId.myRoomId,
+                              type: "forwardEmoji-replyVideo",
+                              destinationRoomId: roomId.destinationRoomId,
+                              time: moment().format("HH:mm"),
+                              timeStamp: moment().format("YYYYMMDDhhmmss"),
+                              forwardChat: forwardMessage.chat,
+                              forwardName: forwardMessage.name,
+                              forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
+                            })
+                          }
+                        />
+                      )}
+                    {forwardChat === true &&
+                      (forwardMessage.type === "image" ||
+                        forwardMessage.type === "forwardText-replyImage" ||
+                        forwardMessage.type === "forwardEmoji-replyImage" ||
+                        forwardMessage.type === "forwardImage-replyImage" ||
+                        forwardMessage.type === "forwardVideo-replyImage") && (
+                        <input
+                          className="display-none"
+                          type="file"
+                          id="addVideo2"
+                          accept="video/mp4,video/webm,video/ogg"
+                          onChange={(val) =>
+                            sendImage({
+                              file: val.target.files[0],
+                              userId: roomId.userId,
+                              destinationId: roomId.destinationUserId,
+                              myRoomId: roomId.myRoomId,
+                              type: "forwardImage-replyVideo",
+                              destinationRoomId: roomId.destinationRoomId,
+                              time: moment().format("HH:mm"),
+                              timeStamp: moment().format("YYYYMMDDhhmmss"),
+                              forwardChat: forwardMessage.chat,
+                              forwardName: forwardMessage.name,
+                              forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
+                            })
+                          }
+                        />
+                      )}
+                    {forwardChat === true &&
+                      (forwardMessage.type === "video" ||
+                        forwardMessage.type === "forwardText-replyVideo" ||
+                        forwardMessage.type === "forwardEmoji-replyVideo" ||
+                        forwardMessage.type === "forwardImage-replyVideo" ||
+                        forwardMessage.type === "forwardVideo-replyVideo") && (
+                        <input
+                          className="display-none"
+                          type="file"
+                          id="addVideo2"
+                          accept="video/mp4,video/webm,video/ogg"
+                          onChange={(val) =>
+                            sendImage({
+                              file: val.target.files[0],
+                              userId: roomId.userId,
+                              destinationId: roomId.destinationUserId,
+                              myRoomId: roomId.myRoomId,
+                              type: "forwardVideo-replyVideo",
+                              destinationRoomId: roomId.destinationRoomId,
+                              time: moment().format("HH:mm"),
+                              timeStamp: moment().format("YYYYMMDDhhmmss"),
+                              forwardChat: forwardMessage.chat,
+                              forwardName: forwardMessage.name,
+                              forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
                             })
                           }
                         />
                       )}
                     <textarea
-                      className="d-flex align-items-center"
                       value={
                         chatContent.charAt(0).toUpperCase() +
                         chatContent.slice(1)
@@ -1625,6 +2778,7 @@ const PhoneChatRoom = ({
                             forwardChat: "",
                             forwardName: "",
                             forwardSenderId: "",
+                            forwardChatId: "",
                           })
                         }
                         className="sendIcon"
@@ -1639,7 +2793,8 @@ const PhoneChatRoom = ({
                       (forwardMessage.type === "text" ||
                         forwardMessage.type === "forwardText-replyText" ||
                         forwardMessage.type === "forwardEmoji-replyText" ||
-                        forwardMessage.type === "forwardImage-replyText") && (
+                        forwardMessage.type === "forwardImage-replyText" ||
+                        forwardMessage.type === "forwardVideo-replyText") && (
                         <img
                           onClick={() =>
                             Send({
@@ -1654,6 +2809,7 @@ const PhoneChatRoom = ({
                               forwardChat: forwardMessage.chat,
                               forwardName: forwardMessage.name,
                               forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
                             })
                           }
                           className="sendIcon"
@@ -1668,7 +2824,8 @@ const PhoneChatRoom = ({
                       (forwardMessage.type === "emoji" ||
                         forwardMessage.type === "forwardText-replyEmoji" ||
                         forwardMessage.type === "forwardEmoji-replyEmoji" ||
-                        forwardMessage.type === "forwardImage-replyEmoji") && (
+                        forwardMessage.type === "forwardImage-replyEmoji" ||
+                        forwardMessage.type === "forwardVideo-replyEmoji") && (
                         <img
                           onClick={() =>
                             Send({
@@ -1683,6 +2840,7 @@ const PhoneChatRoom = ({
                               forwardChat: forwardMessage.chat,
                               forwardName: forwardMessage.name,
                               forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
                             })
                           }
                           className="sendIcon"
@@ -1697,7 +2855,8 @@ const PhoneChatRoom = ({
                       (forwardMessage.type === "image" ||
                         forwardMessage.type === "forwardText-replyImage" ||
                         forwardMessage.type === "forwardEmoji-replyImage" ||
-                        forwardMessage.type === "forwardImage-replyImage") && (
+                        forwardMessage.type === "forwardImage-replyImage" ||
+                        forwardMessage.type === "forwardVideo-replyImage") && (
                         <img
                           onClick={() =>
                             Send({
@@ -1712,6 +2871,38 @@ const PhoneChatRoom = ({
                               forwardChat: forwardMessage.chat,
                               forwardName: forwardMessage.name,
                               forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
+                            })
+                          }
+                          className="sendIcon"
+                          src={send}
+                          width="25px"
+                          height="25px"
+                          alt="emotIcon"
+                        />
+                      )}
+                    {chatContent !== "" &&
+                      forwardChat === true &&
+                      (forwardMessage.type === "video" ||
+                        forwardMessage.type === "forwardText-replyVideo" ||
+                        forwardMessage.type === "forwardEmoji-replyVideo" ||
+                        forwardMessage.type === "forwardImage-replyVideo" ||
+                        forwardMessage.type === "forwardVideo-replyVideo") && (
+                        <img
+                          onClick={() =>
+                            Send({
+                              chat: chatContent,
+                              userId: roomId.userId,
+                              destinationId: roomId.destinationUserId,
+                              myRoomId: roomId.myRoomId,
+                              type: "forwardVideo-replyText",
+                              destinationRoomId: roomId.destinationRoomId,
+                              time: moment().format("HH:mm"),
+                              timeStamp: moment().format("YYYYMMDDhhmmss"),
+                              forwardChat: forwardMessage.chat,
+                              forwardName: forwardMessage.name,
+                              forwardSenderId: forwardMessage.forwardSenderId,
+                              forwardChatId: forwardMessage.forwardChatId,
                             })
                           }
                           className="sendIcon"
@@ -1765,6 +2956,7 @@ const PhoneChatRoom = ({
           </div>
         </div>
       )}
+      {chatSetting === true && <Chatsetting />}
     </div>
   );
 };
@@ -1784,6 +2976,8 @@ const stateReducer = (state) => {
     contentImageLoading: state.contentImageLoading,
     progressImage: state.progressImage,
     openChat: state.openChat,
+    searchInput: state.searchInput,
+    chatSetting: state.chatSetting,
   };
 };
 
@@ -1810,6 +3004,16 @@ const dispatchReducer = (dispatch) => ({
     dispatch({
       type: "OPEN_CHAT",
       value: value,
+    }),
+  setSearchInput: (data) =>
+    dispatch({
+      type: "searchContact",
+      value: data,
+    }),
+  setChatSetting: (data) =>
+    dispatch({
+      type: "CHAT_SETTING",
+      value: data,
     }),
   getRoom: () => dispatch(getRoom()),
   sendChat: (data) => dispatch(sendChat(data)),

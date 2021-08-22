@@ -7,6 +7,7 @@ import closeProfil from "../img/left-arrow.png";
 // import cameraimg from "../img/camera-512.png";
 import { useState } from "react";
 import { updateProfil, changeImage, deletePhoto } from "../reducer/action";
+import { Link } from "react-router-dom";
 
 const Profil = ({
   account,
@@ -22,9 +23,15 @@ const Profil = ({
   const [profilEdit, setProfilEdit] = useState(false);
   const [statusEdit, setStatusEdit] = useState(false);
   const [openImg, setOpenImg] = useState(false);
-  const [imageedit, setImageEdit] = useState(false);
   const [name, setName] = useState(profilName);
   const [info, setInfo] = useState(status);
+  const [confirmLogout, setConfirmLogout] = useState(false);
+
+  const Logout = () => {
+    localStorage.setItem("chatLogin", "false");
+    localStorage.setItem("chatId", "");
+    localStorage.setItem("phoneNumber", "");
+  };
 
   return (
     account &&
@@ -50,10 +57,7 @@ const Profil = ({
               {e.imageProfil === "" && (
                 <img className="profilImg shadow-sm" src={avatar2} alt="" />
               )}
-              <div
-                onMouseOut={() => setImageEdit(false)}
-                className="xyz d-flex flex-column align-items-center"
-              >
+              <div className="xyz d-flex flex-column align-items-center">
                 <label for="addFoto">
                   {e.imageProfil !== "" && <p>UBAH FOTO</p>}
                   {e.imageProfil === "" && <p>UNGGAH FOTO</p>}
@@ -131,7 +135,7 @@ const Profil = ({
             )} */}
 
             {profilLoading === true && (
-              <div className="editImage profilImg shadow-sm align-items-center">
+              <div className=" xyz edtXyz shadow-sm d-flex align-items-center">
                 <div className="loadingProfil ">
                   <div class="spinner-border text-light" role="status"></div>
                 </div>
@@ -246,6 +250,29 @@ const Profil = ({
               </div>
             </div>
           </div>
+          <div onClick={() => setConfirmLogout(true)} className="logout">
+            Keluar
+          </div>
+          {confirmLogout === true && (
+            <div className="confirmField d-flex justify-content-center align-items-center ">
+              <div className="confirm shadow text-start">
+                <p>Keluar dari akun ini?</p>
+                <div className="btnconfirm text-end">
+                  <button
+                    onClick={() => setConfirmLogout(false)}
+                    className="btnconfirm1"
+                  >
+                    Tidak
+                  </button>
+                  <Link>
+                    <button onClick={() => Logout()} className="btnconfirm2">
+                      Keluar
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       );
     })

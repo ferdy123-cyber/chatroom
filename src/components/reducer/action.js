@@ -1,5 +1,6 @@
 import firebase, { database, storage } from "../config/firebaseApi";
 import moment from "moment";
+import { Redirect } from "react-router";
 
 export const setUpReCaptcha = (data) => {
   return (window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -57,6 +58,7 @@ export const onSignInSubmit = (data) => (dispatch) => {
 
           // User couldn't sign in (bad verification code?)
           // ...
+          return <Redirect to="/" />;
         });
       // ...
     })

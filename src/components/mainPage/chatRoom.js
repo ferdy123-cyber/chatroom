@@ -73,6 +73,8 @@ const ChatRoom = ({
   deleteChat,
   setChatSetting,
   chatSetting,
+  searchInput,
+  setSearchInput,
 }) => {
   const [showmenu, setShowmenu] = useState(false);
   const [chatContent, setChatContent] = useState("");
@@ -95,7 +97,6 @@ const ChatRoom = ({
   const [openDelChat, setOpenDelChat] = useState(false);
   const [delId, setDelId] = useState({});
   const [param, setParam] = useState("");
-
   // const showMenu = () => {
   //   if (showmenu === false) {
   //     setShowmenu(true);
@@ -290,10 +291,10 @@ const ChatRoom = ({
 
                   <div className="row menuChat d-flex justify-content-between">
                     {showListContact === false && (
-                      <p className="col-5">Chats</p>
+                      <p className="col-3">Chats</p>
                     )}
                     {showListContact === true && (
-                      <p className="col-5">
+                      <p className="col-3">
                         <img
                           onClick={() => showContact(false)}
                           className="backListContact"
@@ -312,6 +313,8 @@ const ChatRoom = ({
                   )} */}
                   {showListContact === true && (
                     <input
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
                       placeholder="Cari kontak"
                       className="inpt"
                       autoFocus
@@ -2055,7 +2058,7 @@ const ChatRoom = ({
                                   forwardChatId: "",
                                 })
                               }
-                              className="col-1"
+                              className="col"
                             >
                               {e.emoji}
                             </p>
@@ -2785,6 +2788,7 @@ const stateReducer = (state) => {
     contentImageLoading: state.contentImageLoading,
     progressImage: state.progressImage,
     chatSetting: state.chatSetting,
+    searchInput: state.searchInput,
   };
 };
 
@@ -2810,6 +2814,11 @@ const dispatchReducer = (dispatch) => ({
   setChatSetting: (data) =>
     dispatch({
       type: "CHAT_SETTING",
+      value: data,
+    }),
+  setSearchInput: (data) =>
+    dispatch({
+      type: "searchContact",
       value: data,
     }),
   getRoom: () => dispatch(getRoom()),

@@ -48,6 +48,7 @@ const initialstate = {
   openChat: false,
   jsonData: [],
   chatSetting: false,
+  searchInput: "",
 };
 
 const Reducer = (state = initialstate, action) => {
@@ -264,6 +265,13 @@ const Reducer = (state = initialstate, action) => {
     return {
       ...state,
       progressImage: action.value,
+    };
+  }
+
+  if (action.type === "searchContact") {
+    return {
+      ...state,
+      searchInput: action.value,
     };
   }
 

@@ -11,6 +11,7 @@ const ChatSetting = ({
   chats,
   cleanChat,
   contactProfil,
+  setOpenChat,
 }) => {
   const [name, setName] = useState("");
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -18,11 +19,13 @@ const ChatSetting = ({
     setName("");
     addContact(data);
     setChatSetting(false);
+    setOpenChat(false);
   };
 
   const delroom = (data) => {
     deleteRoomChat(data);
     setChatSetting(false);
+    setOpenChat(false);
   };
 
   const cleanchat = (data) => {
@@ -177,6 +180,11 @@ const dispatchReducer = (dispatch) => ({
     dispatch({
       type: "CHAT_SETTING",
       value: data,
+    }),
+  setOpenChat: (value) =>
+    dispatch({
+      type: "OPEN_CHAT",
+      value: value,
     }),
 });
 
