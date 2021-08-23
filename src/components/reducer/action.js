@@ -470,7 +470,6 @@ export const getRoom = () => (dispatch) => {
                 senderId: snapshot.val()[e].Chats[val].senderId,
                 receiverId: snapshot.val()[e].Chats[val].receiverId,
                 time: snapshot.val()[e].Chats[val].time,
-                timeStamp: snapshot.val()[e].Chats[val].timeStamp,
                 senderRoomId: snapshot.val()[e].Chats[val].senderRoomId,
                 receiverRoomId: snapshot.val()[e].Chats[val].receiverRoomId,
                 chat: snapshot.val()[e].Chats[val].chat,
@@ -480,6 +479,7 @@ export const getRoom = () => (dispatch) => {
               return <div></div>;
             });
           }
+          console.log(chat[chat.length - 1]);
           room.push({
             id: e,
             destinationId: snapshot.val()[e].destinationId,
@@ -493,7 +493,7 @@ export const getRoom = () => (dispatch) => {
               status: "",
               imageProfil: "",
             },
-            chat: chat[chat.length - 1],
+            chat: chat,
           });
           return <div></div>;
         });

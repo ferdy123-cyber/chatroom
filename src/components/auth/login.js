@@ -39,10 +39,9 @@ const Login = ({
               type="phone"
               class="form-control"
               id="floatingInput"
-              placeholder="No telephone"
             />
 
-            <label for="floatingInput">Phone number</label>
+            <label for="floatingInput">Nomer telephone</label>
             {telp === "" && (
               <button className="btn btn-secondary">Submit</button>
             )}
