@@ -1,6 +1,5 @@
 import firebase, { database, storage } from "../config/firebaseApi";
 import moment from "moment";
-import { Redirect } from "react-router";
 
 export const setUpReCaptcha = (data) => {
   return (window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -46,6 +45,27 @@ export const onSignInSubmit = (data) => (dispatch) => {
           } else {
             console.log("data available");
           }
+          database
+            .ref(`/${localStorage.getItem("chatId")}/my-account`)
+            .on("value", (snapshot) => {
+              const account = [];
+              console.log(snapshot.val());
+              if (snapshot.val() !== null) {
+                Object.keys(snapshot.val()).map((e) => {
+                  account.push({
+                    id: e,
+                    name: snapshot.val()[e].name,
+                    contact: snapshot.val()[e].contact,
+                    status: snapshot.val()[e].status,
+                    imageProfil: snapshot.val()[e].imageProfil,
+                  });
+                  return <div></div>;
+                });
+              } else {
+                addAccount();
+                console.log("ok");
+              }
+            });
         })
         .catch((error) => {
           console.log(error);
@@ -58,7 +78,6 @@ export const onSignInSubmit = (data) => (dispatch) => {
 
           // User couldn't sign in (bad verification code?)
           // ...
-          return <Redirect to="/" />;
         });
       // ...
     })
@@ -451,6 +470,7 @@ export const getRoom = () => (dispatch) => {
                 senderId: snapshot.val()[e].Chats[val].senderId,
                 receiverId: snapshot.val()[e].Chats[val].receiverId,
                 time: snapshot.val()[e].Chats[val].time,
+                timeStamp: snapshot.val()[e].Chats[val].timeStamp,
                 senderRoomId: snapshot.val()[e].Chats[val].senderRoomId,
                 receiverRoomId: snapshot.val()[e].Chats[val].receiverRoomId,
                 chat: snapshot.val()[e].Chats[val].chat,
@@ -473,7 +493,7 @@ export const getRoom = () => (dispatch) => {
               status: "",
               imageProfil: "",
             },
-            chat: chat,
+            chat: chat[chat.length - 1],
           });
           return <div></div>;
         });
@@ -590,7 +610,7 @@ export const addAccount = () => {
         console.log(error);
         // The write failed...
       } else {
-        console.log("ok");
+        console.log("account added");
 
         // Data saved successfully!
       }
@@ -659,11 +679,11 @@ export const getAccount = () => (dispatch) => {
         });
       }
 
-      if (account.length === 0) {
-        addAccount();
-      } else {
-        console.log("account available");
-      }
+      // if (account.length === 0) {
+      //   addAccount();
+      // } else {
+      //   console.log("account available");
+      // }
       dispatch({
         type: "GET_ACCOUNT",
         value: account,

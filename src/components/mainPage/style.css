@@ -955,12 +955,6 @@ background-color: #42519b; */
   font-size: 22px;
 }
 
-.rootLogin .apkName{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  letter-spacing: 10px;
-  font-size: 22px;
-  opacity: 0.5;
-}
 
 .dev {
   font-size: 14px;

@@ -20,19 +20,18 @@ const Login = ({
   const [telp, setTelp] = useState("");
   const registerNum = (val) => {
     onSignInSubmit(val);
-    getAccount();
+    // getAccount();
   };
   useEffect(() => {
     getUser();
   }, [getUser]);
-  console.log(myAccount);
   return (
     <div className="rootLogin">
       <img src={chat} alt="" />
       <p className="apkName">CHATLITE</p>
       <div id="recaptcha-container"></div>
       {localStorage.getItem("chatLogin") === "false" && (
-        <div className="loginContent">
+        <div className="loginContent d-flex justify-content-center">
           <div class="form-floating">
             <input
               value={telp}

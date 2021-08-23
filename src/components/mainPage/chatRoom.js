@@ -76,6 +76,9 @@ const ChatRoom = ({
   searchInput,
   setSearchInput,
 }) => {
+  if (!localStorage.getItem("chatLogin")) {
+    localStorage.setItem("chatLogin", "false");
+  }
   const [showmenu, setShowmenu] = useState(false);
   const [chatContent, setChatContent] = useState("");
   const [collapsChat, setCollapsChat] = useState("chatContent");
@@ -218,8 +221,6 @@ const ChatRoom = ({
   const hide = () => {
     hideMenu();
   };
-
-  console.log(roomId);
   console.log(param);
 
   return (
@@ -367,7 +368,7 @@ const ChatRoom = ({
                                   <div className="nameAndTime d-flex justify-content-between">
                                     <p className="name1">{e.destination}</p>
                                     <p className="timeRoomChat">
-                                      {e.chat[e.chat.length - 1].time}
+                                      {e.chat.time}
                                     </p>
                                   </div>
                                 )}
@@ -376,42 +377,32 @@ const ChatRoom = ({
                                   <div className="nameAndTime d-flex justify-content-between">
                                     <p className="name1">{e.destinationName}</p>
                                     <p className="timeRoomChat">
-                                      {e.chat[e.chat.length - 1].time}
+                                      {e.chat.time}
                                     </p>
                                   </div>
                                 )}
 
-                                {(e.chat[e.chat.length - 1].type === "text" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyText" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyText" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyText" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardVideo-replyText" ||
-                                  e.chat[e.chat.length - 1].type === "emoji" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyEmoji" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyEmoji" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyEmoji" ||
-                                  e.chat[e.chat.length - 1].type === "" ||
-                                  e.chat[e.chat.length - 1].type ===
+                                {(e.chat.type === "text" ||
+                                  e.chat.type === "forwardText-replyText" ||
+                                  e.chat.type === "forwardImage-replyText" ||
+                                  e.chat.type === "forwardEmoji-replyText" ||
+                                  e.chat.type === "forwardVideo-replyText" ||
+                                  e.chat.type === "emoji" ||
+                                  e.chat.type === "forwardText-replyEmoji" ||
+                                  e.chat.type === "forwardEmoji-replyEmoji" ||
+                                  e.chat.type === "forwardImage-replyEmoji" ||
+                                  e.chat.type === "" ||
+                                  e.chat.type ===
                                     "forwardVideo-replyEmoji") && (
                                   <p className="pEdit textPreview">
-                                    {e.chat[e.chat.length - 1].chat}
+                                    {e.chat.chat}
                                   </p>
                                 )}
-                                {(e.chat[e.chat.length - 1].type === "image" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyImage" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyImage" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyImage" ||
-                                  e.chat[e.chat.length - 1].type ===
+                                {(e.chat.type === "image" ||
+                                  e.chat.type === "forwardText-replyImage" ||
+                                  e.chat.type === "forwardEmoji-replyImage" ||
+                                  e.chat.type === "forwardImage-replyImage" ||
+                                  e.chat.type ===
                                     "forwardVideo-replyImage") && (
                                   <p className="textPreview">
                                     <img
@@ -425,14 +416,11 @@ const ChatRoom = ({
                                     Foto
                                   </p>
                                 )}
-                                {(e.chat[e.chat.length - 1].type === "video" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyVideo" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyVideo" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyVideo" ||
-                                  e.chat[e.chat.length - 1].type ===
+                                {(e.chat.type === "video" ||
+                                  e.chat.type === "forwardText-replyVideo" ||
+                                  e.chat.type === "forwardEmoji-replyVideo" ||
+                                  e.chat.type === "forwardImage-replyVideo" ||
+                                  e.chat.type ===
                                     "forwardVideo-replyVideo") && (
                                   <p className="textPreview">
                                     <img
