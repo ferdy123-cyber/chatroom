@@ -2101,7 +2101,13 @@ const PhoneChatRoom = ({
                   </div>
 
                   {forwardChat === true && (
-                    <div className="forwardInput shadow-sm d-flex align-items-center">
+                    <div
+                      className={
+                        collapsChat === "chatContent4"
+                          ? "forwardInput2 shadow-sm d-flex align-items-center"
+                          : "forwardInput shadow-sm d-flex align-items-center"
+                      }
+                    >
                       {(forwardMessage.type === "text" ||
                         forwardMessage.type === "forwardText-replyText" ||
                         forwardMessage.type === "forwardImage-replyText" ||

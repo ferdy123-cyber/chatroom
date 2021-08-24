@@ -1160,6 +1160,13 @@ background-color: rgba(0, 0, 0, 0.3)
   margin-right: 3%;
 }
 
+.forwardInput2 .closeForward {
+  opacity: 0.6;
+  cursor: pointer;
+  width: 3%;
+  margin-right: 3%;
+}
+
 .contentForward {
   border-radius: 5px;
   width: 89%;
@@ -1320,55 +1327,88 @@ margin-top: 3px;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.15);
     padding-top: 70px;
     padding-bottom: 70px;
+    padding-left: 3px;
 
   }
   .chatContent2 {
-    background-color: cadetblue;
-    margin: 0px;
-    width: 100%;
+    width: 99%;
+    min-height: 10px;
+    max-height: 100vh;
     height: 100%;
-    max-height: 48vh;
     overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 70px;
+    padding-bottom: 270px;
     animation: none;
+    padding-left: 3px;
   }
   .emojies {
-    height: 30vh;
-    width: 100%;
+    position: fixed;
+    height: 200px;
+    width: 99%;
     background-color: white;
     border-radius: 10px;
-    margin: 0px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 65px;
     animation: animasiEmojiPhone 0.3s ease ;
   }
   @keyframes animasiEmojiPhone {
     0% {
-      margin-top: 30vh;
       height: 0px;
     }
     100% {
-      height: 30vh;
-      margin-top: 0px;
+      height: 200px;
     }
   }
   .chatContent3 {
-    margin: 0px;
-    width: 100%;
+    width: 99%;
+    min-height: 10px;
+    max-height: 100vh;
     height: 100%;
-    max-height: 66vh;
     overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 70px;
+    padding-bottom: 155px;
+    animation: none;
+    padding-left: 3px;
   }
   .forwardInput {
-    margin-top: 5px;
-    margin-bottom: -13px;
     background-color: white;
-    height: 13vh;
-    width: 100%;
+    height: 80px;
+    width: 99%;
     margin-left: 0px;
     border-radius: 10px;
     animation: animasiForwardInput 0.3s ease;
+    position: fixed;
+    bottom: 65px;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  .forwardInput2 {
+    background-color: white;
+    height: 80px;
+    width: 99%;
+    margin-left: 0px;
+    border-radius: 10px;
+    animation: animasiForwardInput 0.3s ease;
+    position: fixed;
+    bottom: 265px;
+    left: 0;
+    right: 0;
+    margin: auto;
   }
   
   @keyframes animasiForwardInput {
@@ -1384,12 +1424,21 @@ margin-top: 3px;
   }
 
   .chatContent4 {
-    margin: 0px;
-    width: 100%;
+    width: 99%;
+    min-height: 10px;
+    max-height: 100vh;
     height: 100%;
-    max-height: 36vh;
     overflow: auto;
-    animation: animasiChatContent2Phone 0.5s ease;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 70px;
+    padding-bottom: 355px;
+    animation: none;
+    padding-left: 3px;
+    background-color: antiquewhite;
   }
   
   @keyframes animasiChatContent2Phone{
@@ -1412,6 +1461,8 @@ margin-top: 3px;
     left: 0;
     bottom: 0;
     z-index: 99;
+    background-color: antiquewhite;
+    padding-left: 5px;
   }
   .imageForward {
     object-fit: cover;
