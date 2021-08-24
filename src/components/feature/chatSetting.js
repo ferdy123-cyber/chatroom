@@ -82,19 +82,26 @@ const ChatSetting = ({
               >
                 Tidak
               </button>
-              <button
-                onClick={() =>
-                  add({
-                    name: name,
-                    contact: roomId.destination,
-                    id: roomId.destinationUserId,
-                    listRoomChat: listRoomChat,
-                  })
-                }
-                className="btnconfirm2"
-              >
-                Tambah kontak
-              </button>
+              {name !== "" && (
+                <button
+                  onClick={() =>
+                    add({
+                      name: name,
+                      contact: roomId.destination,
+                      id: roomId.destinationUserId,
+                      listRoomChat: listRoomChat,
+                    })
+                  }
+                  className="btnconfirm2"
+                >
+                  Tambah kontak
+                </button>
+              )}
+              {name === "" && (
+                <button className="edtbtncon2 btnconfirm2">
+                  Tambah kontak
+                </button>
+              )}
             </div>
           </div>
         </div>
