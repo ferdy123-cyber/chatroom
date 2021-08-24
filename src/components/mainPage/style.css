@@ -1409,7 +1409,9 @@ margin-top: 3px;
   }
   .left {
     padding-right: 0px;
-    height: 100%;
+    height: 100vh;
+    background-color: antiquewhite;
+    position: fixed;
   }
   .listView {
     padding-right:0px;
