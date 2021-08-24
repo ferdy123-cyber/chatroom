@@ -1310,13 +1310,24 @@ margin-top: 3px;
     letter-spacing: 0.5px;
   }
   .chatContent {
-    width: 100%;
-    max-height: 78vh;
+    width: 99%;
+    min-height: 10px;
+    max-height: 100vh;
     height: 100%;
     overflow: auto;
-    margin: 0px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding-top: 70px;
+    padding-bottom: 70px;
+
   }
   .chatContent2 {
+    background-color: cadetblue;
     margin: 0px;
     width: 100%;
     height: 100%;
@@ -1391,11 +1402,16 @@ margin-top: 3px;
   }
 
   .contactView {
-    height: 10vh;
+    height: 60px;
     padding-top: 20px;
-    width: 100%;
+    width: 99%;
     padding-bottom: 15px;
     margin-bottom: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 99;
   }
   .imageForward {
     object-fit: cover;
@@ -1406,11 +1422,15 @@ margin-top: 3px;
   }
   .inputChat {
     background-color: white;
-    width: 100%;
-    height: 7vh;
-    margin-left: 0px;
-    margin-top: 13px;
+    width: 98%;
+    height: 45px;
+    margin: 0px;
     border-radius: 10px;
+    position: fixed;
+    margin: auto;
+    bottom: 15px;
+    right: 0;
+    left: 0;
   }
   .left {
     padding-right: 0px;
@@ -1433,9 +1453,9 @@ margin-top: 3px;
   /*  */
   .ChatBox {
     border-radius: 0px;
-    background-color: #f4f3f8;
     margin-left: 0px;
     width: 100%;
+    height: 100%;
   } 
   .confirm {
     background-color: white;
@@ -1485,7 +1505,8 @@ margin-top: 3px;
     padding: 0px 5px;
     animation: animasichatview 0.6s ease;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    position: relative;
   }
   .listRoom {
     animation: animasichatview 0.6s ease;
@@ -1640,8 +1661,8 @@ margin-top: 3px;
 
   .miniProfil {
     border-radius: 50%;
-    width: 7vh;
-    height: 7vh;
+    width: 40px;
+    height: 40px;
     background-color: rgba(0, 0, 0, 0.07);
     object-fit: contain;
     margin-right: 10px;
