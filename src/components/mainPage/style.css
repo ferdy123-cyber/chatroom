@@ -1077,17 +1077,22 @@ background-color: #42519b; */
 .play {
   text-align: center;
   cursor: pointer;
+  position: relative;
 }
 
 .play img {
-  position: relative;
-  margin-top: -65%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   border-radius: 50%;
+  margin: auto;
+  
 }
 
 
 .play video {
-  margin-bottom: -20px;
 }
 
 .progresText {
@@ -1307,14 +1312,14 @@ margin-top: 3px;
   .chatContent {
     width: 100%;
     max-height: 78vh;
-    height: 78vh;
+    height: 100%;
     overflow: auto;
     margin: 0px;
   }
   .chatContent2 {
     margin: 0px;
     width: 100%;
-    height: 48vh;
+    height: 100%;
     max-height: 48vh;
     overflow: auto;
     animation: none;
@@ -1340,7 +1345,7 @@ margin-top: 3px;
   .chatContent3 {
     margin: 0px;
     width: 100%;
-    height: 66vh;
+    height: 100%;
     max-height: 66vh;
     overflow: auto;
   }
@@ -1370,7 +1375,7 @@ margin-top: 3px;
   .chatContent4 {
     margin: 0px;
     width: 100%;
-    height: 36vh;
+    height: 100%;
     max-height: 36vh;
     overflow: auto;
     animation: animasiChatContent2Phone 0.5s ease;
@@ -1410,7 +1415,6 @@ margin-top: 3px;
   .left {
     padding-right: 0px;
     height: 100vh;
-    background-color: antiquewhite;
     position: fixed;
   }
   .listView {
@@ -1481,7 +1485,7 @@ margin-top: 3px;
     padding: 0px 5px;
     animation: animasichatview 0.6s ease;
     width: 100%;
-    
+    height: 100vh;
   }
   .listRoom {
     animation: animasichatview 0.6s ease;
@@ -1688,11 +1692,7 @@ margin-top: 3px;
   animation: animasiAddContact 0.5s ease;
   padding: 15px;
 }
-.play img {
-  position: relative;
-  margin-top: -55%;
-  border-radius: 50%;
-}
+
 .profilVideoShow {
   margin: auto;
   width: 100%;
