@@ -114,7 +114,7 @@
   margin-top: -10px;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 1024px) {
   .AddContactBox {
     margin: 0px;
     width: 100%;
