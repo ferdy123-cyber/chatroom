@@ -3,12 +3,13 @@ import menuIcon from "../img/menu.png";
 import chat from "../img/chat.png";
 import avatar2 from "../img/user.png";
 // import search from "../img/search.png";
+import addVideo from "../img/play-button (1).png";
+import addPhoto from "../img/images.png";
 import check1 from "../img/checkmark-512 (1).png";
 import check2 from "../img/checkmark-512.png";
 import play from "../img/play-button-28243.png";
 import iconVideo from "../img/play-button.png";
 import emoji from "../img/grinning.png";
-import plus from "../img/plus.png";
 import send from "../img/send.png";
 import close from "../img/left-turn-arrow.png";
 import close2 from "../img/cancel.png";
@@ -2260,7 +2261,7 @@ const ChatRoom = ({
                   <label for="addimgChat">
                     <img
                       className="addImgChat"
-                      src={plus}
+                      src={addPhoto}
                       width="30px"
                       height="30px"
                       alt="emotIcon"
@@ -2409,7 +2410,7 @@ const ChatRoom = ({
                   <label for="addVideo">
                     <img
                       className="addImgChat"
-                      src={plus}
+                      src={addVideo}
                       width="30px"
                       height="30px"
                       alt="emotIcon"
