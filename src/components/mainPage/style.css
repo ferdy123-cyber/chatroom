@@ -2584,6 +2584,76 @@ margin-top: 3px;
     .blackBackground {
       background-color: transparent;
     }
+    .contactView {
+      height: 70px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+    }
+    .chatContent {
+      width: 98%;
+      height: 99%;
+      overflow: auto;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      padding-top: 78px;
+      padding-bottom: 60px;
+      z-index: 1;
+    }
+    
+    .chat-content2 {
+      position: fixed;
+    }
+    .chat-content3 {
+      position: fixed;
+    }
+    .chat-content3 {
+      position: fixed;
+    }
+
+    .inputChat {
+      background-color: white;
+      width: 98%;
+      height: 50px;
+      border-radius: 10px;
+      position: fixed;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      margin: 0px auto;
+      z-index: 2;
+    }
+    .emojies {
+      height: 230px;
+      width: 98%;
+      background-color: white;
+      border-radius: 10px;
+      animation: animasiEmoji 0.2s ease ;
+      position: fixed;
+      bottom: 0;
+      margin-bottom: 70px;
+      z-index: 2;
+    }
+
+    .forwardInput {
+      background-color: white;
+      height: 100px;
+      width: 98%;
+      border-radius: 10px;
+      animation: animasiForwardInput 0.3s ease;
+      position: fixed;
+      bottom: 0;
+      margin-bottom: 70px;
+      z-index: 2;
+    }
+    .forwardInput2{
+      position: fixed;
+    }
+    
     @keyframes animasiOpenProfil {
       0% {
         width: 0px;
