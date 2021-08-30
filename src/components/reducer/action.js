@@ -160,61 +160,92 @@ export const addContact = (data) => (dispatch) => {
   const roomAvailable = data.listRoomChat.filter(
     (e) => e.destination === data.contact
   );
+  console.log(data);
   console.log(roomAvailable);
-  return database.ref(`/${localStorage.getItem("chatId")}/contacts`).push(
-    {
-      name: data.name,
-      contact: data.contact,
-      id: data.id,
+  if (roomAvailable.length === 0) {
+    addDestinationRoom(data);
+    addmyRoom(data);
+    console.log("ok");
+  } else {
+    console.log("room available");
+    console.log(roomAvailable);
+    editMyRoom({
+      id: roomAvailable[0].id,
+      value: data.name,
+      userId: roomAvailable[0].userId,
+      title: "destinationName",
+    });
+  }
+  dispatch({
+    type: "ROOM_ID",
+    value: {
+      destinationRoomId: "",
+      destinationUserId: "",
+      myRoomId: "",
+      userId: "",
+      destinationName: "",
+      destination: "",
+      account: {
+        imageProfil: "",
+        name: "",
+        status: "",
+      },
     },
-    (error) => {
-      if (error) {
-        console.log(error);
-        // The write failed...
-      } else {
-        if (roomAvailable.length === 0) {
-          addDestinationRoom(data);
-          addmyRoom(data);
-          console.log("ok");
-        } else {
-          console.log("room available");
-          console.log(roomAvailable);
-          editMyRoom({
-            id: roomAvailable[0].id,
-            value: data.name,
-            userId: roomAvailable[0].userId,
-            title: "destinationName",
-          });
-        }
-        dispatch({
-          type: "ROOM_ID",
-          value: {
-            destinationRoomId: "",
-            destinationUserId: "",
-            myRoomId: "",
-            userId: "",
-            destinationName: "",
-            destination: "",
-            account: {
-              imageProfil: "",
-              name: "",
-              status: "",
-            },
-          },
-        });
-        dispatch({
-          type: "SHOW_ADD_CONTACT",
-          value: false,
-        });
-        dispatch({ type: "SEARCH", value: true });
-        dispatch({
-          type: "SHOW_CONTACT_PROFIL",
-          value: false,
-        });
-        // Data saved successfully!
-      }
-    }
-  );
+  });
+  // return database.ref(`/${localStorage.getItem("chatId")}/contacts`).push(
+  //   {
+  //     name: data.name,
+  //     contact: data.contact,
+  //     id: data.id,
+  //   },
+  //   (error) => {
+  //     if (error) {
+  //       console.log(error);
+  //       // The write failed...
+  //     } else {
+  //       if (roomAvailable.length === 0) {
+  //         addDestinationRoom(data);
+  //         addmyRoom(data);
+  //         console.log("ok");
+  //       } else {
+  //         console.log("room available");
+  //         console.log(roomAvailable);
+  //         editMyRoom({
+  //           id: roomAvailable[0].id,
+  //           value: data.name,
+  //           userId: roomAvailable[0].userId,
+  //           title: "destinationName",
+  //         });
+  //       }
+  //       dispatch({
+  //         type: "ROOM_ID",
+  //         value: {
+  //           destinationRoomId: "",
+  //           destinationUserId: "",
+  //           myRoomId: "",
+  //           userId: "",
+  //           destinationName: "",
+  //           destination: "",
+  //           account: {
+  //             imageProfil: "",
+  //             name: "",
+  //             status: "",
+  //           },
+  //         },
+  //       });
+  //       dispatch({
+  //         type: "SHOW_ADD_CONTACT",
+  //         value: false,
+  //       });
+  //       dispatch({ type: "SEARCH", value: true });
+  //       dispatch({
+  //         type: "SHOW_CONTACT_PROFIL",
+  //         value: false,
+  //       });
+  //       // Data saved successfully!
+  //     }
+  //   }
+  // );
 };
 export const getContact = () => (dispatch) => {
   return database
@@ -480,7 +511,6 @@ export const getRoom = () => (dispatch) => {
               return <div></div>;
             });
           }
-          console.log(chat[chat.length - 1]);
           room.push({
             id: e,
             destinationId: snapshot.val()[e].destinationId,
@@ -528,7 +558,7 @@ export const getRoom = () => (dispatch) => {
       });
       dispatch({
         type: "GET_ROOM",
-        value: room.filter((val) => val.chat.length !== 0),
+        value: room,
       });
     },
     (error) => {
@@ -953,7 +983,7 @@ export const SendImage = (data) => (dispatch) => {
   console.log("originalFile instanceof Blob", data.file.type); // true
   console.log(`originalFile size ${data.file.size / 1024 / 1024} MB`);
   const options = {
-    maxSizeMB: 1,
+    maxSizeMB: 0.5,
     maxWidthOrHeight: 1920,
     useWebWorker: true,
   };
@@ -1039,51 +1069,69 @@ export const SendImage = (data) => (dispatch) => {
 };
 
 export const changeImage = (data) => (dispatch) => {
-  console.log(data);
-  dispatch({ type: "PROFIL_LOADING", value: true });
-  const storageRef = storage.ref();
-  const uploadTask = storageRef
-    .child(`${localStorage.getItem("chatId")}/profilImg`)
-    .put(data.file);
-  uploadTask.on(
-    "stateChanged",
-    (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
-    },
-    function (error) {
-      // Handle unsuccessful uploads
-      console.log(error);
-    },
-    function () {
-      // Handle successful uploads on complete
-      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-        return database
-          .ref(
-            `/${localStorage.getItem("chatId")}/my-account/${
-              data.id
-            }/imageProfil`
-          )
-          .set(
-            downloadURL,
+  console.log("originalFile instanceof Blob", data.file.type); // true
+  console.log(`originalFile size ${data.file.size / 1024 / 1024} MB`);
+  const options = {
+    maxSizeMB: 0.1,
+    maxWidthOrHeight: 375,
+    useWebWorker: true,
+  };
+  imageCompression(data.file, options)
+    .then((compressedFile) => {
+      console.log("compressedFile instanceof Blob"); // true
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      );
+      console.log(data);
+      dispatch({ type: "PROFIL_LOADING", value: true });
+      const storageRef = storage.ref();
+      const uploadTask = storageRef
+        .child(`${localStorage.getItem("chatId")}/profilImg`)
+        .put(compressedFile);
+      uploadTask.on(
+        "stateChanged",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        function (error) {
+          // Handle unsuccessful uploads
+          console.log(error);
+        },
+        function () {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            return database
+              .ref(
+                `/${localStorage.getItem("chatId")}/my-account/${
+                  data.id
+                }/imageProfil`
+              )
+              .set(
+                downloadURL,
 
-            (error) => {
-              if (error) {
-                // dispatch({ type: "CHANGE_LOADING", value: false });
-                // The write failed...
-                console.log(error);
-              } else {
-                // dispatch({ type: "CHANGE_LOADING", value: false });
-                // Data saved successfully!
-                console.log("succes");
-                dispatch({ type: "PROFIL_LOADING", value: false });
-              }
-            }
-          );
-      });
-    }
-  );
+                (error) => {
+                  if (error) {
+                    // dispatch({ type: "CHANGE_LOADING", value: false });
+                    // The write failed...
+                    console.log(error);
+                  } else {
+                    // dispatch({ type: "CHANGE_LOADING", value: false });
+                    // Data saved successfully!
+                    console.log("succes");
+                    dispatch({ type: "PROFIL_LOADING", value: false });
+                  }
+                }
+              );
+          });
+        }
+      );
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
 };
 
 export const loadProfilRoom = (data) => (dispatch) => {

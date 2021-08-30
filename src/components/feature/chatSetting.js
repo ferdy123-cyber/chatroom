@@ -28,6 +28,7 @@ const ChatSetting = ({
     deleteRoomChat(data);
     setChatSetting(false);
     setOpenChat(false);
+    setScreenOpen("list-room");
   };
 
   const cleanchat = (data) => {

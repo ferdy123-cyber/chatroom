@@ -79,6 +79,7 @@
 
 .addContact {
   font-size: 14px;
+  position: relative;
 }
 
 .addContact input {

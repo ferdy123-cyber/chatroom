@@ -940,6 +940,29 @@ background-color: #42519b; */
   background-color: white;
 }
 
+.Content-image-blob {
+  width: 250px;
+  height: 150px;
+  max-height: 350px ;
+  border-radius: 10px;
+  cursor: pointer;
+  object-fit: cover;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0.7;
+  filter: blur(0.5px);
+}
+
+.loading-ui {
+  width: 55px;
+  height: 55px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
 .max-img {
   width: 250px;
 }
@@ -2365,6 +2388,7 @@ margin-top: 3px;
     position: fixed;
     top: 0;
     bottom: 0;
+    padding-bottom: 5px;
     width: 100vw;
     height: 100vh;
   }
@@ -2653,7 +2677,30 @@ margin-top: 3px;
     .forwardInput2{
       position: fixed;
     }
-    
+
+    .confirm {
+      background-color: white;
+      width: 80vw;
+      height: 150px;
+      animation: animasiAddContact 1s ease;
+    }
+    .btnconfirm {
+      width: 100%;
+    }
+    .AddContactBox .searchContact {
+      width: 90%;
+      border-radius: 10px;
+      padding: 6px 0;
+      border: none;
+      color: white;
+      font-size: 14px;
+      background-color: #6c84ff;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 20px auto;
+    }
     @keyframes animasiOpenProfil {
       0% {
         width: 0px;

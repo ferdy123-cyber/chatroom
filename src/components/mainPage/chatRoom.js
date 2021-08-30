@@ -5,6 +5,7 @@ import avatar2 from "../img/user.png";
 // import search from "../img/search.png";
 import addVideo from "../img/play-button (1).png";
 import addPhoto from "../img/images.png";
+import Circle from "react-circle";
 // import check1 from "../img/checkmark-512 (1).png";
 // import check2 from "../img/checkmark-512.png";
 import closeProfil from "../img/left-arrow.png";
@@ -314,31 +315,6 @@ const ChatRoom = ({
                       width="25px"
                     />
                   </div>
-                  {/* <button className="newChatBtn d-flex justify-content-center align-items-center">
-                    <div
-                      onClick={() => showContactProfil("myProfil")}
-                      className="span2"
-                    >
-                      Profil
-                    </div>
-                    <div
-                      onClick={() => showContact(true)}
-                      className="span1 border-start border-end border-dark"
-                    >
-                      <img
-                        onClick={() => hideContactMenu(false)}
-                        src={noTelepone}
-                        width="20px"
-                        alt="plusIcon"
-                      />
-                    </div>
-                    <div
-                      onClick={() => showAddContactMenu(true)}
-                      className="entahlah span2"
-                    >
-                      Tambah kontak
-                    </div>
-                  </button> */}
 
                   <div className="row menuChat d-flex justify-content-between">
                     {showListContact === false && (
@@ -367,135 +343,142 @@ const ChatRoom = ({
                   )}
                   {showListContact === false && listRoomChat.length !== 0 && (
                     <div className="listChat justify-content-center">
-                      {listRoomChat.map((e, index) => {
-                        return (
-                          <div className="listmap border-bottom border-2">
-                            <div
-                              onClick={() =>
-                                RoomId({
-                                  userId: e.userId,
-                                  destinationId: e.destinationId,
-                                  roomId: e.id,
-                                  destinationName: e.destinationName,
-                                  destination: e.destination,
-                                  account: e.accounts,
-                                })
-                              }
-                              className={
-                                "listView d-flex " +
-                                (e.id === roomId.myRoomId
-                                  ? "blackBackground"
-                                  : "")
-                              }
-                            >
-                              <div>
-                                {e.accounts.imageProfil !== "" && (
-                                  <img
-                                    src={e.accounts.imageProfil}
-                                    width="50px"
-                                    height="50px"
-                                    alt=""
-                                  />
-                                )}
-                                {e.accounts.imageProfil === "" && (
-                                  <img
-                                    src={avatar2}
-                                    width="50px"
-                                    height="50px"
-                                    alt=""
-                                  />
-                                )}
-                              </div>
-
-                              <div className="name align-items-center">
-                                {e.destinationName === "" && (
-                                  <div className="nameAndTime d-flex justify-content-between">
-                                    <p className="name1">{e.destination}</p>
-                                    <p className="timeRoomChat">
-                                      {e.chat[e.chat.length - 1].time}
-                                    </p>
-                                  </div>
-                                )}
-
-                                {e.destinationName !== "" && (
-                                  <div className="nameAndTime d-flex justify-content-between">
-                                    <p className="name1">{e.destinationName}</p>
-                                    <p className="timeRoomChat">
-                                      {e.chat[e.chat.length - 1].time}
-                                    </p>
-                                  </div>
-                                )}
-
-                                {(e.chat[e.chat.length - 1].type === "text" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyText" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyText" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyText" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardVideo-replyText" ||
-                                  e.chat[e.chat.length - 1].type === "emoji" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyEmoji" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyEmoji" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyEmoji" ||
-                                  e.chat[e.chat.length - 1].type === "" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardVideo-replyEmoji") && (
-                                  <p className="pEdit textPreview">
-                                    {e.chat[e.chat.length - 1].chat}
-                                  </p>
-                                )}
-                                {(e.chat[e.chat.length - 1].type === "image" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyImage" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyImage" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyImage" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardVideo-replyImage") && (
-                                  <p className="textPreview">
+                      {listRoomChat
+                        .filter((val) => val.chat.length !== 0)
+                        .map((e, index) => {
+                          return (
+                            <div className="listmap border-bottom border-2">
+                              <div
+                                onClick={() =>
+                                  RoomId({
+                                    userId: e.userId,
+                                    destinationId: e.destinationId,
+                                    roomId: e.id,
+                                    destinationName: e.destinationName,
+                                    destination: e.destination,
+                                    account: e.accounts,
+                                  })
+                                }
+                                className={
+                                  "listView d-flex " +
+                                  (e.id === roomId.myRoomId
+                                    ? "blackBackground"
+                                    : "")
+                                }
+                              >
+                                <div>
+                                  {e.accounts.imageProfil !== "" && (
                                     <img
-                                      className="imageTypeLastChat"
-                                      src={camera}
+                                      src={e.accounts.imageProfil}
+                                      width="50px"
+                                      height="50px"
                                       alt=""
-                                      width="14px"
-                                      height="13px"
                                     />
-                                    {"  "}
-                                    Foto
-                                  </p>
-                                )}
-                                {(e.chat[e.chat.length - 1].type === "video" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardText-replyVideo" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardEmoji-replyVideo" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardImage-replyVideo" ||
-                                  e.chat[e.chat.length - 1].type ===
-                                    "forwardVideo-replyVideo") && (
-                                  <p className="textPreview">
+                                  )}
+                                  {e.accounts.imageProfil === "" && (
                                     <img
-                                      className="imageTypeLastChat"
-                                      src={iconVideo}
+                                      src={avatar2}
+                                      width="50px"
+                                      height="50px"
                                       alt=""
-                                      width="14px"
-                                      height="13px"
                                     />
-                                    {"  "}
-                                    Video
-                                  </p>
-                                )}
+                                  )}
+                                </div>
+
+                                <div className="name align-items-center">
+                                  {e.destinationName === "" && (
+                                    <div className="nameAndTime d-flex justify-content-between">
+                                      <p className="name1">{e.destination}</p>
+                                      <p className="timeRoomChat">
+                                        {e.chat[e.chat.length - 1].time}
+                                      </p>
+                                    </div>
+                                  )}
+
+                                  {e.destinationName !== "" && (
+                                    <div className="nameAndTime d-flex justify-content-between">
+                                      <p className="name1">
+                                        {e.destinationName}
+                                      </p>
+                                      <p className="timeRoomChat">
+                                        {e.chat[e.chat.length - 1].time}
+                                      </p>
+                                    </div>
+                                  )}
+
+                                  {(e.chat[e.chat.length - 1].type === "text" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "emoji" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyEmoji" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyEmoji" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyEmoji" ||
+                                    e.chat[e.chat.length - 1].type === "" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyEmoji") && (
+                                    <p className="pEdit textPreview">
+                                      {e.chat[e.chat.length - 1].chat}
+                                    </p>
+                                  )}
+                                  {(e.chat[e.chat.length - 1].type ===
+                                    "image" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyImage" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyImage" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyImage" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyImage") && (
+                                    <p className="textPreview">
+                                      <img
+                                        className="imageTypeLastChat"
+                                        src={camera}
+                                        alt=""
+                                        width="14px"
+                                        height="13px"
+                                      />
+                                      {"  "}
+                                      Foto
+                                    </p>
+                                  )}
+                                  {(e.chat[e.chat.length - 1].type ===
+                                    "video" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyVideo" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyVideo" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyVideo" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyVideo") && (
+                                    <p className="textPreview">
+                                      <img
+                                        className="imageTypeLastChat"
+                                        src={iconVideo}
+                                        alt=""
+                                        width="14px"
+                                        height="13px"
+                                      />
+                                      {"  "}
+                                      Video
+                                    </p>
+                                  )}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
                     </div>
                   )}
                   {showListContact === false && listRoomChat.length === 0 && (
@@ -570,45 +553,9 @@ const ChatRoom = ({
                   >
                     <img src={menuIcon} alt="search" width="18px" />
                   </div>
-                  {/* <div
-                    onClick={() => showContactProfil("contactProfil")}
-                    className="avatarAndName d-flex justify-content-start align-items-center col-11 row"
-                  >
-                    <div className="col-1">
-                      {roomId.account.imageProfil !== "" && (
-                        <img
-                          className="miniProfil"
-                          src={roomId.account.imageProfil}
-                          alt="avatar"
-                        />
-                      )}
-                      {roomId.account.imageProfil === "" && (
-                        <img
-                          className="miniProfil"
-                          src={avatar2}
-                          alt="avatar"
-                        />
-                      )}
-                    </div>
-                    {roomId.destinationName !== "" && (
-                      <p className="col-8">{roomId.destinationName}</p>
-                    )}
-                    {roomId.destinationName === "" && (
-                      <p className="col-8">{roomId.destination}</p>
-                    )}
-                  </div>
-                  <div className="searchChatButton d-flex justify-content-end align-items-center col-1">
-                    <img
-                      onClick={() => setChatSetting(true)}
-                      src={menuIcon}
-                      width="18px"
-                      alt="search"
-                    />
-                  </div> */}
                 </div>
                 <div className={collapsChat} onClick={() => hide()}>
                   <AutoScroll>
-                    {contentImageLoading === true && <div>hallo</div>}
                     {chats
                       .filter((val) => val.chat !== "")
                       .map((e, index) => {
@@ -1493,1365 +1440,45 @@ const ChatRoom = ({
                                   )}
                                 </div>
                               )}
-
-                              {/* <div
-                                  onMouseOver={() => setOpenChatOpt(e.id)}
-                                  onMouseOut={() => setOpenChatOpt("")}
-                                  className={
-                                    e.chat + e.timeStamp === param
-                                      ? "darkBg content shadow-sm"
-                                      : "content shadow-sm"
-                                  }
-                                >
-                                  {e.type === "text" && (
-                                    <p className="cht">{e.chat}</p>
-                                  )}
-                                  {e.type === "forwardText-replyText" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardText-replyEmoji" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardImage-replyText" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyText" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-
-                                  {e.type === "emoji" && (
-                                    <p className="emot cht">{e.chat}</p>
-                                  )}
-                                  {e.type === "forwardEmoji-replyText" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardEmoji-replyEmoji" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardImage-replyEmoji" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyEmoji" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "image" && (
-                                    <img
-                                      onClick={() => functionOpenImg(e.chat)}
-                                      className="contentImg"
-                                      src={e.chat}
-                                      alt=""
-                                    />
-                                  )}
-                                  {e.type === "forwardText-replyImage" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p>{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-
-                                  {e.type === "forwardEmoji-replyImage" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-
-                                  {e.type === "forwardImage-replyImage" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyImage" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "video" && (
-                                    <div
-                                      className="play"
-                                      onClick={() => functionOpenVideo(e.chat)}
-                                    >
-                                      <video
-                                        className="contentImg"
-                                        src={e.chat}
-                                      />
-                                      <img src={play} alt="" width="60px" />
-                                    </div>
-                                  )}
-                                  {e.type === "forwardText-replyVideo" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p>{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardEmoji-replyVideo" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardImage-replyVideo" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyVideo" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {openChatOpt !== e.id && chatOpt !== e.id && (
-                                    <div className="timeAndStatus d-flex justify-content-end">
-                                      <p className="time">{e.time}</p>
-                                    </div>
-                                  )}
-                                  {openChatOpt === e.id && chatOpt !== e.id && (
-                                    <div className="timeAndStatus d-flex justify-content-end">
-                                      <img
-                                        onClick={() => setChatOpt(e.id)}
-                                        className="downArrow"
-                                        src={downArrow2}
-                                        alt="check"
-                                        width="15px"
-                                        height="13px"
-                                      />
-                                    </div>
-                                  )}
-                                  {chatOpt === e.id && (
-                                    <div className="d-flex justify-content-center optChat">
-                                      <p
-                                        onClick={() =>
-                                          openForward({
-                                            name: roomId.destinationName,
-                                            chat: e.chat,
-                                            type: e.type,
-                                            forwardSenderId: e.senderId,
-                                            forwardChatId: e.chat + e.timeStamp,
-                                          })
-                                        }
-                                      >
-                                        Balas
-                                      </p>
-                                      <p
-                                        onClick={() =>
-                                          confirmDelChat({
-                                            userId:
-                                              localStorage.getItem("chatId"),
-                                            roomId: e.receiverRoomId,
-                                            chatId: e.id,
-                                            chat: chats,
-                                          })
-                                        }
-                                      >
-                                        Hapus
-                                      </p>
-                                      <p onClick={() => setChatOpt(false)}>
-                                        Batal
-                                      </p>
-                                    </div>
-                                  )}
-                                </div> */}
                             </div>
-
-                            {/* {e.senderId === roomId.userId && (
-                              <div className="chatAndProfil d-flex justify-content-end">
-                                <div
-                                  onMouseOver={() => setOpenChatOpt(e.id)}
-                                  onMouseOut={() => setOpenChatOpt("")}
-                                  className={
-                                    e.chat + e.timeStamp === param
-                                      ? "darkBg2 myRoom content shadow-sm"
-                                      : "blueBg myRoom content shadow-sm"
-                                  }
-                                >
-                                  {e.type === "text" && (
-                                    <p className="cht">{e.chat}</p>
-                                  )}
-                                  {e.type === "forwardText-replyText" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardText-replyEmoji" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardImage-replyText" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyText" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "emoji" && (
-                                    <p className="emot cht">{e.chat}</p>
-                                  )}
-                                  {e.type === "forwardEmoji-replyText" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="cht">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardEmoji-replyEmoji" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardImage-replyEmoji" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyEmoji" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <p className="emot">{e.chat}</p>
-                                    </a>
-                                  )}
-                                  {e.type === "image" && (
-                                    <img
-                                      onClick={() => functionOpenImg(e.chat)}
-                                      className="contentImg"
-                                      src={e.chat}
-                                      alt=""
-                                    />
-                                  )}
-                                  {e.type === "forwardText-replyImage" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="">{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardEmoji-replyImage" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardImage-replyImage" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyImage" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <img
-                                          onClick={() =>
-                                            functionOpenImg(e.chat)
-                                          }
-                                          className="contentImg"
-                                          src={e.chat}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "video" && (
-                                    <div
-                                      className="play"
-                                      onClick={() => functionOpenVideo(e.chat)}
-                                    >
-                                      <video
-                                        className="contentImg"
-                                        src={e.chat}
-                                      />
-                                      <img src={play} alt="" width="60px" />
-                                    </div>
-                                  )}
-                                  {e.type === "forwardText-replyVideo" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p>{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardEmoji-replyVideo" && (
-                                    <a
-                                      onClick={() => setParam(e.forwardChatId)}
-                                      href={"#" + e.forwardChatId}
-                                    >
-                                      <div className="contentForwardText">
-                                        {localStorage.getItem("chatId") ===
-                                          e.forwardSenderId && <p>Anda</p>}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName !== "" && (
-                                            <p>{roomId.destinationName}</p>
-                                          )}
-                                        {localStorage.getItem("chatId") !==
-                                          e.forwardSenderId &&
-                                          roomId.destinationName === "" && (
-                                            <p>{roomId.destination}</p>
-                                          )}
-                                        <p className="emot">{e.forwardChat}</p>
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardImage-replyVideo" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={camera}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Foto
-                                          </p>
-                                        </div>
-                                        <img
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {e.type === "forwardVideo-replyVideo" && (
-                                    <a
-                                      href={"#" + e.forwardChatId}
-                                      onClick={() => setParam(e.forwardChatId)}
-                                    >
-                                      <div className="contentForwardText d-flex justify-content-between align-items-center">
-                                        <div>
-                                          {localStorage.getItem("chatId") ===
-                                            e.forwardSenderId && <p>Anda</p>}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName !== "" && (
-                                              <p>{roomId.destinationName}</p>
-                                            )}
-                                          {localStorage.getItem("chatId") !==
-                                            e.forwardSenderId &&
-                                            roomId.destinationName === "" && (
-                                              <p>{roomId.destination}</p>
-                                            )}
-                                          <p>
-                                            <img
-                                              src={iconVideo}
-                                              width="14px"
-                                              alt=""
-                                            />
-                                            Video
-                                          </p>
-                                        </div>
-                                        <video
-                                          className="imageForward"
-                                          src={e.forwardChat}
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="imageField">
-                                        <div
-                                          className="play"
-                                          onClick={() =>
-                                            functionOpenVideo(e.chat)
-                                          }
-                                        >
-                                          <video
-                                            className="contentImg"
-                                            src={e.chat}
-                                          />
-                                          <img src={play} alt="" width="60px" />
-                                        </div>
-                                      </div>
-                                    </a>
-                                  )}
-                                  {openChatOpt !== e.id && chatOpt !== e.id && (
-                                    <div className="timeAndStatus d-flex justify-content-end">
-                                      <p className="time">{e.time}</p>
-                                      {e.status === "send" && (
-                                        <img
-                                          src={check2}
-                                          alt="check"
-                                          width="15px"
-                                          height="13px"
-                                        />
-                                      )}
-                                      {e.status === "read" && (
-                                        <img
-                                          src={check1}
-                                          alt="check"
-                                          width="15px"
-                                          height="13px"
-                                        />
-                                      )}
-                                    </div>
-                                  )}
-                                  {openChatOpt === e.id && chatOpt !== e.id && (
-                                    <div className="timeAndStatus d-flex justify-content-end">
-                                      <img
-                                        onClick={() => setChatOpt(e.id)}
-                                        className="downArrow"
-                                        src={downArrow}
-                                        alt="check"
-                                        width="15px"
-                                        height="13px"
-                                      />
-                                    </div>
-                                  )}
-                                  {chatOpt === e.id && (
-                                    <div className="d-flex justify-content-center optChat">
-                                      <p
-                                        onClick={() =>
-                                          openForward({
-                                            name: "Anda",
-                                            chat: e.chat,
-                                            type: e.type,
-                                            forwardSenderId: e.senderId,
-                                            forwardChatId: e.chat + e.timeStamp,
-                                          })
-                                        }
-                                      >
-                                        Balas
-                                      </p>
-                                      <p
-                                        onClick={() =>
-                                          confirmDelChat({
-                                            userId:
-                                              localStorage.getItem("chatId"),
-                                            roomId: e.senderRoomId,
-                                            chatId: e.id,
-                                            chat: chats,
-                                          })
-                                        }
-                                      >
-                                        Hapus
-                                      </p>
-                                      <p onClick={() => setChatOpt(false)}>
-                                        Batal
-                                      </p>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            )} */}
                           </div>
                         );
                       })}
-                    {/* {contentImageLoading === true && (
-                      <div className="chatAndProfil d-flex justify-content-end">
-                        <div className="blueBg myRoom content shadow-sm">
-                          {" "}
-                          <div
-                            className="contentImg d-flex justify-content-center align-items-center"
-                            src=""
-                            alt=""
-                          >
-                            <div
-                              class="spinner-border text-light"
-                              role="status"
-                            >
-                              <span class="visually-hidden">Loading...</span>
+                    {contentImageLoading === true && (
+                      <div>
+                        <div>
+                          <div className="chatAndProfil d-flex justify-content-end">
+                            <div className="chat-ui2 shadow-sm">
+                              <div>
+                                <div className="chat-content">
+                                  <div
+                                    className="Content-image-blob"
+                                    alt=""
+                                  ></div>
+                                  <div className="loading-ui">
+                                    <Circle
+                                      animate={true}
+                                      progress={progressImage}
+                                      bgColor="empty" // String: Color of "empty" portion of circle.
+                                      textColor="white"
+                                      size={55}
+                                    />
+                                  </div>
+                                  <div
+                                    class="loading-ui spinner-border text-light"
+                                    role="status"
+                                  >
+                                    <span class="visually-hidden">
+                                      Loading...
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                          <p className="text-center progresText">
-                            {progressImage} %
-                          </p>
                         </div>
                       </div>
-                    )} */}
+                    )}
                   </AutoScroll>
                 </div>
 
@@ -3689,11 +2316,6 @@ const ChatRoom = ({
                         screenOpen === "chat" ? "" : "none"
                       }`
                 }
-                // className={
-                //   contactProfil === false
-                //     ? "chatView d-flex justify-content-center align-items-center"
-                //     : "chatView2 d-flex justify-content-center align-items-center"
-                // }
               >
                 <div className="emptyId">
                   <img src={chat} alt="" />

@@ -30,7 +30,6 @@ const ListContact = ({
     setOpenConfirm(true);
   };
   const delContact = (data) => {
-    deleteContact(data);
     editRoomName(data);
     setOpenConfirm(false);
   };
@@ -38,11 +37,10 @@ const ListContact = ({
     getRoomId(data);
     showContact(false);
   };
-  console.log(listRoomChatContact.length);
-  console.log(searchInput);
+  const contactRoom = listRoomChat.filter((x) => x.destinationName !== "");
   return (
     <div className="listChat justify-content-center">
-      {listRoomChatContact
+      {contactRoom
         .filter((val) => {
           if (searchInput === "") {
             return val;
@@ -63,7 +61,7 @@ const ListContact = ({
           );
           return (
             <div>
-              {filter.length === 1 && (
+              {
                 <div className="listmap border-bottom border-2">
                   <div className="listView d-flex">
                     {e.accounts.imageProfil !== "" && (
@@ -124,7 +122,7 @@ const ListContact = ({
                     </div>
                   </div>
                 </div>
-              )}
+              }
               {listRoomChatContact.length === 0 && (
                 <div>
                   <p>hallo</p>
