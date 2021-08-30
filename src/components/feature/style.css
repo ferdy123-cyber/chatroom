@@ -51,12 +51,15 @@
   width: 90%;
   border-radius: 10px;
   padding: 6px 0;
-  margin-top: 10px;
   border: none;
   color: white;
   font-size: 14px;
   background-color: #6c84ff;
-
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .mainAddContact img {
@@ -114,7 +117,13 @@
   margin-top: -10px;
 }
 
-@media (max-width: 1024px) {
+.img1 {
+  width: 480px;
+  height: 640px;
+  border-radius: 20px;
+}
+
+@media (max-width: 0px) {
   .AddContactBox {
     margin: 0px;
     width: 100%;

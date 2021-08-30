@@ -37,7 +37,7 @@ const Profil = ({
     account &&
     account.map((e) => {
       return (
-        <div className="profil align-items-center">
+        <div className="myProf profil align-items-center">
           <img
             onClick={() => hideContactProfil()}
             className="closeProfil"
@@ -57,39 +57,41 @@ const Profil = ({
               {e.imageProfil === "" && (
                 <img className="profilImg shadow-sm" src={avatar2} alt="" />
               )}
-              <div className="xyz d-flex flex-column align-items-center">
-                <label for="addFoto">
-                  {e.imageProfil !== "" && <p>UBAH FOTO</p>}
-                  {e.imageProfil === "" && <p>UNGGAH FOTO</p>}
-                </label>
-                <input
-                  className="d-none"
-                  id="addFoto"
-                  type="file"
-                  accept="image/x-png,image/gif,image/jpeg"
-                  onChange={(val) =>
-                    changeImage({
-                      file: val.target.files[0],
-                      id: e.id,
-                    })
-                  }
-                />
-                {e.imageProfil !== "" && (
-                  <p onClick={() => setOpenImg(true)}>LIHAT FOTO</p>
-                )}
-                {e.imageProfil !== "" && (
-                  <p
-                    onClick={() =>
-                      deletePhoto({
+              <div className="profilImg-hover d-flex flex-column align-items-center">
+                <div className="content-edit">
+                  <label for="addFoto">
+                    {e.imageProfil !== "" && <p>UBAH FOTO</p>}
+                    {e.imageProfil === "" && <p>UNGGAH FOTO</p>}
+                  </label>
+                  <input
+                    className="d-none"
+                    id="addFoto"
+                    type="file"
+                    accept="image/x-png,image/gif,image/jpeg"
+                    onChange={(val) =>
+                      changeImage({
+                        file: val.target.files[0],
                         id: e.id,
-                        value: "",
-                        title: "imageProfil",
                       })
                     }
-                  >
-                    HAPUS FOTO
-                  </p>
-                )}
+                  />
+                  {e.imageProfil !== "" && (
+                    <p onClick={() => setOpenImg(true)}>LIHAT FOTO</p>
+                  )}
+                  {e.imageProfil !== "" && (
+                    <p
+                      onClick={() =>
+                        deletePhoto({
+                          id: e.id,
+                          value: "",
+                          title: "imageProfil",
+                        })
+                      }
+                    >
+                      HAPUS FOTO
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -135,8 +137,8 @@ const Profil = ({
             )} */}
 
             {profilLoading === true && (
-              <div className=" xyz edtXyz shadow-sm d-flex align-items-center">
-                <div className="loadingProfil ">
+              <div className="profilImg-hover d-flex flex-column align-items-center">
+                <div className="content-edit">
                   <div class="spinner-border text-light" role="status"></div>
                 </div>
               </div>

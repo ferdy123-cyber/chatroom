@@ -49,9 +49,23 @@ const initialstate = {
   jsonData: [],
   chatSetting: false,
   searchInput: "",
+  imgUrlcompressed: "",
+  screenOpen: "list-room",
 };
 
 const Reducer = (state = initialstate, action) => {
+  if (action.type === "compressImg") {
+    return {
+      ...state,
+      imgUrlcompressed: action.value,
+    };
+  }
+  if (action.type === "screen") {
+    return {
+      ...state,
+      screenOpen: action.value,
+    };
+  }
   if (action.type === "REGISTER") {
     return {
       ...state,

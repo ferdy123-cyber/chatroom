@@ -35,6 +35,7 @@ import {
   getRoomId,
   loadProfilRoom,
   SendImage,
+  SendVideo,
   deleteChat,
 } from "../reducer/action";
 import AddContact from "../feature/addcontact";
@@ -70,6 +71,7 @@ const PhoneChatRoom = ({
   contactProfil,
   showContactProfil,
   SendImage,
+  SendVideo,
   contentImageLoading,
   progressImage,
   deleteChat,
@@ -83,7 +85,6 @@ const PhoneChatRoom = ({
   if (!localStorage.getItem("chatLogin")) {
     localStorage.setItem("chatLogin", "false");
   }
-  console.log(account);
   const [showmenu, setShowmenu] = useState(false);
   const [chatContent, setChatContent] = useState("");
   const [collapsChat, setCollapsChat] = useState("chatContent");
@@ -214,6 +215,13 @@ const PhoneChatRoom = ({
     setOpenEmoji(false);
     setCollapsChat("chatContent");
     SendImage(data);
+  };
+
+  const sendVideo = (data) => {
+    setForwardChat(false);
+    setOpenEmoji(false);
+    setCollapsChat("chatContent");
+    SendVideo(data);
   };
 
   // console.log(forwardChat);
@@ -2076,7 +2084,7 @@ const PhoneChatRoom = ({
                             </div>
                           );
                         })}
-                      {contentImageLoading === true && (
+                      {
                         <div className="chatAndProfil d-flex justify-content-end">
                           <div className="blueBg myRoom content shadow-sm">
                             {" "}
@@ -2097,7 +2105,7 @@ const PhoneChatRoom = ({
                             </p>
                           </div>
                         </div>
-                      )}
+                      }
                     </AutoScroll>
                   </div>
 
@@ -2633,7 +2641,7 @@ const PhoneChatRoom = ({
                         id="addVideo2"
                         accept="video/mp4,video/webm,video/ogg"
                         onChange={(val) =>
-                          sendImage({
+                          sendVideo({
                             file: val.target.files[0],
                             userId: roomId.userId,
                             destinationId: roomId.destinationUserId,
@@ -2662,7 +2670,7 @@ const PhoneChatRoom = ({
                           id="addVideo2"
                           accept="video/mp4,video/webm,video/ogg"
                           onChange={(val) =>
-                            sendImage({
+                            sendVideo({
                               file: val.target.files[0],
                               userId: roomId.userId,
                               destinationId: roomId.destinationUserId,
@@ -2691,7 +2699,7 @@ const PhoneChatRoom = ({
                           id="addVideo2"
                           accept="video/mp4,video/webm,video/ogg"
                           onChange={(val) =>
-                            sendImage({
+                            sendVideo({
                               file: val.target.files[0],
                               userId: roomId.userId,
                               destinationId: roomId.destinationUserId,
@@ -2720,7 +2728,7 @@ const PhoneChatRoom = ({
                           id="addVideo2"
                           accept="video/mp4,video/webm,video/ogg"
                           onChange={(val) =>
-                            sendImage({
+                            sendVideo({
                               file: val.target.files[0],
                               userId: roomId.userId,
                               destinationId: roomId.destinationUserId,
@@ -2749,7 +2757,7 @@ const PhoneChatRoom = ({
                           id="addVideo2"
                           accept="video/mp4,video/webm,video/ogg"
                           onChange={(val) =>
-                            sendImage({
+                            sendVideo({
                               file: val.target.files[0],
                               userId: roomId.userId,
                               destinationId: roomId.destinationUserId,
@@ -3035,6 +3043,7 @@ const dispatchReducer = (dispatch) => ({
   loadProfilRoom: (data) => dispatch(loadProfilRoom(data)),
   getRoomContact: () => dispatch(getRoomContact()),
   SendImage: (data) => dispatch(SendImage(data)),
+  SendVideo: (data) => dispatch(SendVideo(data)),
   deleteChat: (data) => dispatch(deleteChat(data)),
 });
 

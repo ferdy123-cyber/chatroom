@@ -12,6 +12,7 @@ const ChatSetting = ({
   cleanChat,
   contactProfil,
   setOpenChat,
+  setScreenOpen,
 }) => {
   const [name, setName] = useState("");
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -20,6 +21,7 @@ const ChatSetting = ({
     addContact(data);
     setChatSetting(false);
     setOpenChat(false);
+    setScreenOpen("list-room");
   };
 
   const delroom = (data) => {
@@ -37,15 +39,9 @@ const ChatSetting = ({
     setOpenConfirm(false);
     setChatSetting(false);
   };
-  console.log(contactProfil);
+  console.log(openConfirm);
   return (
-    <div
-      className={
-        contactProfil === false
-          ? "openMenu shadow bg-body rounded d-flex justify-content-start align-items-center"
-          : "openmenugeser shadow bg-body rounded d-flex justify-content-start align-items-center"
-      }
-    >
+    <div className="openMenu shadow d-flex justify-content-start align-items-center">
       {openConfirm === false && (
         <div className="li">
           {roomId.destinationName === "" && (
@@ -192,6 +188,11 @@ const dispatchReducer = (dispatch) => ({
     dispatch({
       type: "OPEN_CHAT",
       value: value,
+    }),
+  setScreenOpen: (data) =>
+    dispatch({
+      type: "screen",
+      value: data,
     }),
 });
 

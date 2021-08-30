@@ -1,5 +1,6 @@
 import firebase, { database, storage } from "../config/firebaseApi";
 import moment from "moment";
+import imageCompression from "browser-image-compression";
 
 export const setUpReCaptcha = (data) => {
   return (window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -565,10 +566,12 @@ export const getOtherRoom = (data) => {
 };
 
 export const getChats = (data) => (dispatch) => {
+  console.log("tunggu");
   return database
     .ref(`/${data.userId}/roomChat/${data.myRoomId}/Chats`)
     .on("value", (snapshot) => {
       const chats = [];
+
       if (snapshot.val() !== null) {
         Object.keys(snapshot.val()).map((e) => {
           chats.push({
@@ -590,6 +593,7 @@ export const getChats = (data) => (dispatch) => {
           return <div></div>;
         });
       }
+      console.log("selesai");
       dispatch({
         type: "GET_CHATS",
         value: chats,
@@ -876,16 +880,15 @@ export const deletePhoto = (data) => (dispatch) => {
     );
 };
 
-export const SendImage = (data) => (dispatch) => {
-  console.log(data.file);
+export const SendVideo = (data) => (dispatch) => {
   if (data.file === null || data.file === undefined) {
     console.log("image not send");
   } else {
     const storageRef = storage.ref();
     const uploadTask = storageRef
       .child(
-        `${localStorage.getItem("chatId")}/chatImages/${
-          "image" + moment().format("YYYYMMDDHHmmss")
+        `${localStorage.getItem("chatId")}/chatVideos/${
+          "video" + moment().format("YYYYMMDDHHmmss")
         }`
       )
       .put(data.file);
@@ -944,6 +947,95 @@ export const SendImage = (data) => (dispatch) => {
       }
     );
   }
+};
+
+export const SendImage = (data) => (dispatch) => {
+  console.log("originalFile instanceof Blob", data.file.type); // true
+  console.log(`originalFile size ${data.file.size / 1024 / 1024} MB`);
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  };
+  imageCompression(data.file, options)
+    .then((compressedFile) => {
+      console.log("compressedFile instanceof Blob"); // true
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      );
+      console.log(data.file);
+      if (data.file === null || data.file === undefined) {
+        console.log("image not send");
+      } else {
+        const storageRef = storage.ref();
+        const uploadTask = storageRef
+          .child(
+            `${localStorage.getItem("chatId")}/chatImages/${
+              "image" + moment().format("YYYYMMDDHHmmss")
+            }`
+          )
+          .put(compressedFile);
+        uploadTask.on(
+          "stateChanged",
+          (snapshot) => {
+            dispatch({ type: "contentImageLoading", value: true });
+            const progress = parseInt(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            console.log("Upload is " + progress + "% done");
+            dispatch({ type: "progressImage", value: progress });
+          },
+          function (error) {
+            // Handle unsuccessful uploads
+            console.log(error);
+          },
+          function () {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            dispatch({ type: "progressImage", value: 100 });
+            dispatch({ type: "contentImageLoading", value: true });
+            uploadTask.snapshot.ref
+              .getDownloadURL()
+              .then(function (downloadURL) {
+                addMyChats({
+                  chat: downloadURL,
+                  userId: data.userId,
+                  destinationId: data.destinationId,
+                  myRoomId: data.myRoomId,
+                  destinationRoomId: data.destinationRoomId,
+                  time: data.time,
+                  timeStamp: data.timeStamp,
+                  status: "send",
+                  type: data.type,
+                  forwardChat: data.forwardChat,
+                  forwardName: data.forwardName,
+                  forwardSenderId: data.forwardSenderId,
+                  forwardChatId: data.forwardChatId,
+                });
+                addDestinationChats({
+                  chat: downloadURL,
+                  userId: data.userId,
+                  destinationId: data.destinationId,
+                  myRoomId: data.myRoomId,
+                  destinationRoomId: data.destinationRoomId,
+                  time: data.time,
+                  timeStamp: data.timeStamp,
+                  status: "send",
+                  type: data.type,
+                  forwardChat: data.forwardChat,
+                  forwardName: data.forwardName,
+                  forwardSenderId: data.forwardSenderId,
+                  forwardChatId: data.forwardChatId,
+                });
+              });
+            dispatch({ type: "contentImageLoading", value: false });
+          }
+        );
+      }
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
 };
 
 export const changeImage = (data) => (dispatch) => {
@@ -1208,4 +1300,106 @@ export const cleanChat = (data) => (dispatch) => {
           }
         );
     });
+};
+
+export const sendImg = (file) => (dispatch) => {
+  console.log("originalFile instanceof Blob", file); // true
+  console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  };
+  imageCompression(file, options)
+    .then((compressedFile) => {
+      console.log("compressedFile instanceof Blob"); // true
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      ); // smaller than maxSizeMB
+      // write your own logic
+      // if (file === null || file === undefined) {
+      //   console.log("image not send");
+      // } else {
+      //   const storageRef = storage.ref();
+      //   const uploadTask = storageRef
+      //     .child(`resizeimages/${"image" + moment().format("YYYYMMDDHHmmss")}`)
+      //     .put(compressedFile);
+      //   uploadTask.on(
+      //     "stateChanged",
+      //     (snapshot) => {
+      //       dispatch({ type: "contentImageLoading", value: true });
+      //       const progress = parseInt(
+      //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      //       );
+      //       console.log("Upload is " + progress + "% done");
+      //       dispatch({ type: "progressImage", value: progress });
+      //     },
+      //     function (error) {
+      //       // Handle unsuccessful uploads
+      //       console.log(error);
+      //     },
+      //     function () {
+      //       // Handle successful uploads on complete
+      //       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      //       dispatch({ type: "progressImage", value: 100 });
+      //       dispatch({ type: "contentImageLoading", value: true });
+      //       uploadTask.snapshot.ref
+      //         .getDownloadURL()
+      //         .then(function (downloadURL) {
+      //           console.log(downloadURL);
+      //           dispatch({ type: "compressImg", value: downloadURL });
+      //         });
+      //       dispatch({ type: "contentImageLoading", value: false });
+      //     }
+      //   );
+      // }
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+
+  // new Compressor(data, {
+  //   quality: 0.2, // 0.6 can also be used, but its not recommended to go below.
+  //   success: (compressedResult) => {
+  //     // compressedResult has the compressed file.
+  //     // Use the compressed file to upload the images to your server.
+  //     console.log(compressedResult);
+  //     console.log(data);
+  //     if (data === null || data === undefined) {
+  //       console.log("image not send");
+  //     } else {
+  //       const storageRef = storage.ref();
+  //       const uploadTask = storageRef
+  //         .child(`resizeimages/${"image" + moment().format("YYYYMMDDHHmmss")}`)
+  //         .put(compressedResult);
+  //       uploadTask.on(
+  //         "stateChanged",
+  //         (snapshot) => {
+  //           dispatch({ type: "contentImageLoading", value: true });
+  //           const progress = parseInt(
+  //             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //           );
+  //           console.log("Upload is " + progress + "% done");
+  //           dispatch({ type: "progressImage", value: progress });
+  //         },
+  //         function (error) {
+  //           // Handle unsuccessful uploads
+  //           console.log(error);
+  //         },
+  //         function () {
+  //           // Handle successful uploads on complete
+  //           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+  //           dispatch({ type: "progressImage", value: 100 });
+  //           dispatch({ type: "contentImageLoading", value: true });
+  //           uploadTask.snapshot.ref
+  //             .getDownloadURL()
+  //             .then(function (downloadURL) {
+  //               console.log(downloadURL);
+  //             });
+  //           dispatch({ type: "contentImageLoading", value: false });
+  //         }
+  //       );
+  //     }
+  //   },
+  // });
 };

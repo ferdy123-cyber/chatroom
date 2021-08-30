@@ -13,6 +13,10 @@ a {
   height: 40vmin;
   pointer-events: none;
 }
+.img1  {
+  width: 480px;
+  height: 640px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -43,6 +47,7 @@ a {
     transform: rotate(360deg);
   }
 }
+
 
 /* width */
 ::-webkit-scrollbar {
