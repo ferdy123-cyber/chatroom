@@ -2481,8 +2481,9 @@ margin-top: 3px;
     border-radius: 0px;
     position: fixed;
     bottom: 0.3vh;
+    top: 0.3vh;
     width: 100vw;
-    height: 99.5vh;
+    height: 99.3vh;
   }
 }
 
