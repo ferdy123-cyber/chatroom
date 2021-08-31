@@ -6,6 +6,7 @@ import avatar2 from "../img/user.png";
 import addVideo from "../img/play-button (1).png";
 import addPhoto from "../img/images.png";
 import Circle from "react-circle";
+import srollBottom from "../img/img_280188.png";
 // import check1 from "../img/checkmark-512 (1).png";
 // import check2 from "../img/checkmark-512.png";
 import closeProfil from "../img/left-arrow.png";
@@ -153,6 +154,7 @@ const ChatRoom = ({
     setForwardChat(false);
     setOpenEmoji(false);
     sendChat(data);
+    scroll("toBottom");
   };
   const OpenEmoji1 = () => {
     setOpenEmoji(true);
@@ -231,6 +233,7 @@ const ChatRoom = ({
     setOpenEmoji(false);
     setCollapsChat("chatContent");
     SendImage(data);
+    scroll("toBottom");
   };
 
   const sendVideo = (data) => {
@@ -238,10 +241,16 @@ const ChatRoom = ({
     setOpenEmoji(false);
     setCollapsChat("chatContent");
     SendVideo(data);
+    scroll("toBottom");
   };
 
   const hide = () => {
     hideMenu();
+  };
+
+  const scroll = (val) => {
+    const element = document.getElementById(val);
+    element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -595,7 +604,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -608,7 +621,7 @@ const ChatRoom = ({
                                               <div className="forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="text-chat">{e.chat}</p>
                                         </div>
@@ -621,7 +634,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -634,7 +651,7 @@ const ChatRoom = ({
                                               <div className="emoji-text-forward forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="text-chat">{e.chat}</p>
                                         </div>
@@ -647,7 +664,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -672,7 +693,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="text-chat">{e.chat}</p>
                                         </div>
@@ -685,7 +706,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -710,7 +735,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="text-chat">{e.chat}</p>
                                         </div>
@@ -729,7 +754,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -742,7 +771,7 @@ const ChatRoom = ({
                                               <div className="forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="emoji-text text-chat">
                                             {e.chat}
@@ -757,7 +786,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -770,7 +803,7 @@ const ChatRoom = ({
                                               <div className="emoji-text-forward forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="emoji-text text-chat">
                                             {e.chat}
@@ -785,7 +818,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -810,7 +847,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="emoji-text text-chat">
                                             {e.chat}
@@ -825,7 +862,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -850,7 +891,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <p className="emoji-text text-chat">
                                             {e.chat}
@@ -983,7 +1024,11 @@ const ChatRoom = ({
                                             }
                                             className="max-img forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -996,7 +1041,7 @@ const ChatRoom = ({
                                               <div className="forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <img
                                             onClick={() =>
@@ -1016,7 +1061,11 @@ const ChatRoom = ({
                                             }
                                             className="max-img forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -1029,7 +1078,7 @@ const ChatRoom = ({
                                               <div className="emoji-text-forward forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <img
                                             onClick={() =>
@@ -1049,7 +1098,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -1074,7 +1127,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <img
                                             onClick={() =>
@@ -1094,7 +1147,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -1119,7 +1176,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <img
                                             onClick={() =>
@@ -1159,7 +1216,11 @@ const ChatRoom = ({
                                             }
                                             className="max-img forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -1172,7 +1233,7 @@ const ChatRoom = ({
                                               <div className="forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <div
                                             onClick={() =>
@@ -1202,7 +1263,11 @@ const ChatRoom = ({
                                             }
                                             className="max-img forwardText-content-text"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -1215,7 +1280,7 @@ const ChatRoom = ({
                                               <div className="emoji-text-forward forward-content-text">
                                                 {e.forwardChat}
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <div
                                             onClick={() =>
@@ -1245,7 +1310,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -1270,7 +1339,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <div
                                             onClick={() =>
@@ -1300,7 +1369,11 @@ const ChatRoom = ({
                                             }
                                             className="forwardText-content-image"
                                           >
-                                            <a href={"#" + e.forwardChatId}>
+                                            <div
+                                              onClick={() =>
+                                                scroll(e.forwardChatId)
+                                              }
+                                            >
                                               <div className="forward-content-text">
                                                 <b>
                                                   {localStorage.getItem(
@@ -1325,7 +1398,7 @@ const ChatRoom = ({
                                                   src={e.forwardChat}
                                                 />
                                               </div>
-                                            </a>
+                                            </div>
                                           </div>
                                           <div
                                             onClick={() =>
@@ -1440,6 +1513,7 @@ const ChatRoom = ({
                           </div>
                         );
                       })}
+                    <div id="toBottom"></div>
                     {contentImageLoading === true && (
                       <div>
                         <div>
@@ -2297,6 +2371,12 @@ const ChatRoom = ({
                       alt="emotIcon"
                     />
                   )}
+                  <div
+                    className="to-bottom d-flex justify-content-center align-items-center"
+                    onClick={() => scroll("toBottom")}
+                  >
+                    <img src={srollBottom} width="18px" alt="" />
+                  </div>
                 </div>
               </div>
             )}

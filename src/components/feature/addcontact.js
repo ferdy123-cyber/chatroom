@@ -19,10 +19,10 @@ const AddContact = ({
 }) => {
   const [newNumber, setNewNumber] = useState("");
   const [name, setName] = useState("");
-  console.log(newNumber);
   const hideContact = () => {
     hideContactMenu(false);
     setSearchContact(null);
+    setNewNumber("");
   };
   const add = (data) => {
     addContact(data);
@@ -30,7 +30,7 @@ const AddContact = ({
     hideContactMenu(false);
   };
   const idContact = listUser.filter((e) => e.number === newNumber);
-  console.log(availableNumber);
+
   return (
     <div className="confirmField-chatSetting d-flex justify-content-center align-items-center">
       <div className="add-contact shadow text-start">
@@ -38,13 +38,14 @@ const AddContact = ({
         {availableNumber === localStorage.getItem("phoneNumber") && (
           <h2>Ini adalah no telepone anda</h2>
         )}
-        {availableNumber === "Nomor tidak ditemukan!!" && (
-          <h2>{availableNumber}</h2>
-        )}
-        {availableNumber === newNumber &&
+        {availableNumber === 0 && <h2>Nomor tidak ditemukan</h2>}
+        {availableNumber !== 0 &&
+          availableNumber !== null &&
           availableNumber !== localStorage.getItem("phoneNumber") && (
             <h2>Nomor ditemukan</h2>
           )}
+        {listRoomChat.filter((e) => e.destination === availableNumber)
+          .destinationName !== "" && <h2>Dimiliki</h2>}
         <div className="input-contact">
           {(availableNumber !== newNumber ||
             availableNumber === localStorage.getItem("phoneNumber")) && (

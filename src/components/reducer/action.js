@@ -145,7 +145,7 @@ export const searchContact = (data) => (dispatch) => {
       (e) => String(e.number) === String(data)
     );
     if (availableNumber.length === 0) {
-      dispatch({ type: "availableNumber", value: "Nomor tidak ditemukan!!" });
+      dispatch({ type: "availableNumber", value: 0 });
     }
     if (availableNumber.length !== 0) {
       dispatch({ type: "availableNumber", value: availableNumber[0].number });
