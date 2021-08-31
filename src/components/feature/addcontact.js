@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import "../feature/style.css";
-import telephone from "../img/telephone.png";
-import close from "../img/cancel.png";
+// import telephone from "../img/telephone.png";
+// import close from "../img/cancel.png";
 import { addContact, searchContact } from "../reducer/action";
 
 const AddContact = ({
   searchContact,
   searchContactLoading,
+  setSearchContact,
   showMainAddContactImg,
   availableNumber,
   addContact,
@@ -18,12 +19,99 @@ const AddContact = ({
 }) => {
   const [newNumber, setNewNumber] = useState("");
   const [name, setName] = useState("");
-  console.log(showMainAddContactImg);
+  console.log(newNumber);
+  const hideContact = () => {
+    hideContactMenu(false);
+    setSearchContact(null);
+  };
+  const add = (data) => {
+    addContact(data);
+    setName("");
+    hideContactMenu(false);
+  };
   const idContact = listUser.filter((e) => e.number === newNumber);
-  console.log(listRoomChat);
+  console.log(availableNumber);
   return (
-    <div className="AddContactBox justify-content-center">
-      <div>
+    <div className="confirmField-chatSetting d-flex justify-content-center align-items-center">
+      <div className="add-contact shadow text-start">
+        {availableNumber === null && <h2>Tambah kontak baru</h2>}
+        {availableNumber === localStorage.getItem("phoneNumber") && (
+          <h2>Ini adalah no telepone anda</h2>
+        )}
+        {availableNumber === "Nomor tidak ditemukan!!" && (
+          <h2>{availableNumber}</h2>
+        )}
+        {availableNumber === newNumber &&
+          availableNumber !== localStorage.getItem("phoneNumber") && (
+            <h2>Nomor ditemukan</h2>
+          )}
+        <div className="input-contact">
+          {(availableNumber !== newNumber ||
+            availableNumber === localStorage.getItem("phoneNumber")) && (
+            <div>
+              <span>Nomor</span>
+              <input
+                value={newNumber}
+                onChange={(e) => setNewNumber(e.target.value)}
+                type="text"
+                autoFocus={true}
+              />
+              <br />
+            </div>
+          )}
+          {availableNumber === newNumber &&
+            availableNumber !== localStorage.getItem("phoneNumber") && (
+              <div>
+                <span>Nama</span>
+                <input
+                  className="addContactInput"
+                  value={name.charAt(0).toUpperCase() + name.slice(1)}
+                  onChange={(e) => setName(e.target.value)}
+                  autoFocus={true}
+                  type="text"
+                />
+                <br />
+              </div>
+            )}
+          {availableNumber === newNumber &&
+            availableNumber !== localStorage.getItem("phoneNumber") && (
+              <div className="res-add">
+                <span>Nomor</span>
+                <span>
+                  <b>{availableNumber}</b>
+                </span>
+              </div>
+            )}
+          <div className="add-contact-btn">
+            <button onClick={() => hideContact()} className="batal">
+              Batal
+            </button>
+            {(availableNumber !== newNumber ||
+              availableNumber === localStorage.getItem("phoneNumber")) && (
+              <button onClick={() => searchContact(newNumber)} className="cari">
+                Cari
+              </button>
+            )}
+            {availableNumber === newNumber &&
+              availableNumber !== localStorage.getItem("phoneNumber") && (
+                <button
+                  onClick={() =>
+                    add({
+                      name: name,
+                      contact: availableNumber,
+                      id: idContact[0].id,
+                      listRoomChat: listRoomChat,
+                    })
+                  }
+                  className="cari"
+                >
+                  Simpan
+                </button>
+              )}
+          </div>
+        </div>
+      </div>
+      {/* <div>
         <img
           onClick={() => hideContactMenu(false)}
           className="backAddContact"
@@ -48,8 +136,8 @@ const AddContact = ({
             {availableNumber !== "Nomor tidak ditemukan!!" &&
               availableNumber !== localStorage.getItem("phoneNumber") && (
                 <div>
-                  {listContacts.filter(
-                    (e) => String(e.contact) === String(availableNumber)
+                  {listRoomChat.filter(
+                    (e) => String(e.destination) === String(availableNumber)
                   ).length === 0 && (
                     <input
                       className="addContactInput"
@@ -70,9 +158,9 @@ const AddContact = ({
             {availableNumber !== "Nomor tidak ditemukan!!" &&
               availableNumber !== localStorage.getItem("phoneNumber") &&
               name !== "" &&
-              listContacts.filter(
-                (e) => String(e.contact) === String(availableNumber)
-              ).length === 0 && (
+              listRoomChat.filter(
+                (e) => String(e.destination) === String(availableNumber)
+              ).destinationName === "" && (
                 <button
                   onClick={() =>
                     addContact(
@@ -91,9 +179,9 @@ const AddContact = ({
                 </button>
               )}
             {availableNumber !== "Nomor tidak ditemukan!!" &&
-              listContacts.filter(
-                (e) => String(e.contact) === String(availableNumber)
-              ).length !== 0 && (
+              listRoomChat.filter(
+                (e) => String(e.destination) === String(availableNumber)
+              ).destinationName !== "" && (
                 <button className="greyBtn addContactBtn">Dimiliki</button>
               )}
           </div>
@@ -113,7 +201,7 @@ const AddContact = ({
             <span class="visually-hidden">Loading...</span>
           </div>
         </button>
-      )}
+      )} */}
     </div>
   );
 };
@@ -134,6 +222,11 @@ const dispatchReducer = (dispatch) => ({
   hideContactMenu: (data) =>
     dispatch({
       type: "SHOW_ADD_CONTACT",
+      value: data,
+    }),
+  setSearchContact: (data) =>
+    dispatch({
+      type: "availableNumber",
       value: data,
     }),
 });

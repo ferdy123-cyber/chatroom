@@ -980,23 +980,22 @@ export const SendVideo = (data) => (dispatch) => {
 };
 
 export const SendImage = (data) => (dispatch) => {
-  console.log("originalFile instanceof Blob", data.file.type); // true
-  console.log(`originalFile size ${data.file.size / 1024 / 1024} MB`);
-  const options = {
-    maxSizeMB: 0.5,
-    maxWidthOrHeight: 1920,
-    useWebWorker: true,
-  };
-  imageCompression(data.file, options)
-    .then((compressedFile) => {
-      console.log("compressedFile instanceof Blob"); // true
-      console.log(
-        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-      );
-      console.log(data.file);
-      if (data.file === null || data.file === undefined) {
-        console.log("image not send");
-      } else {
+  if (data.file === null || data.file === undefined) {
+    console.log("image not send");
+  } else {
+    console.log("originalFile instanceof Blob", data.file.type); // true
+    console.log(`originalFile size ${data.file.size / 1024 / 1024} MB`);
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    imageCompression(data.file, options)
+      .then((compressedFile) => {
+        console.log("compressedFile instanceof Blob"); // true
+        console.log(
+          `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+        );
         const storageRef = storage.ref();
         const uploadTask = storageRef
           .child(
@@ -1061,77 +1060,83 @@ export const SendImage = (data) => (dispatch) => {
             dispatch({ type: "contentImageLoading", value: false });
           }
         );
-      }
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 };
 
 export const changeImage = (data) => (dispatch) => {
-  console.log("originalFile instanceof Blob", data.file.type); // true
-  console.log(`originalFile size ${data.file.size / 1024 / 1024} MB`);
-  const options = {
-    maxSizeMB: 0.1,
-    maxWidthOrHeight: 375,
-    useWebWorker: true,
-  };
-  imageCompression(data.file, options)
-    .then((compressedFile) => {
-      console.log("compressedFile instanceof Blob"); // true
-      console.log(
-        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-      );
-      console.log(data);
-      dispatch({ type: "PROFIL_LOADING", value: true });
-      const storageRef = storage.ref();
-      const uploadTask = storageRef
-        .child(`${localStorage.getItem("chatId")}/profilImg`)
-        .put(compressedFile);
-      uploadTask.on(
-        "stateChanged",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-        },
-        function (error) {
-          // Handle unsuccessful uploads
-          console.log(error);
-        },
-        function () {
-          // Handle successful uploads on complete
-          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            return database
-              .ref(
-                `/${localStorage.getItem("chatId")}/my-account/${
-                  data.id
-                }/imageProfil`
-              )
-              .set(
-                downloadURL,
+  if (data.file === null || data.file === undefined) {
+    console.log("image not send");
+  } else {
+    console.log("originalFile instanceof Blob", data.file.type); // true
+    console.log(`originalFile size ${data.file.size / 1024 / 1024} MB`);
+    const options = {
+      maxSizeMB: 0.1,
+      maxWidthOrHeight: 375,
+      useWebWorker: true,
+    };
+    imageCompression(data.file, options)
+      .then((compressedFile) => {
+        console.log("compressedFile instanceof Blob"); // true
+        console.log(
+          `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+        );
+        console.log(data);
+        dispatch({ type: "PROFIL_LOADING", value: true });
+        const storageRef = storage.ref();
+        const uploadTask = storageRef
+          .child(`${localStorage.getItem("chatId")}/profilImg`)
+          .put(compressedFile);
+        uploadTask.on(
+          "stateChanged",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+          },
+          function (error) {
+            // Handle unsuccessful uploads
+            console.log(error);
+          },
+          function () {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            uploadTask.snapshot.ref
+              .getDownloadURL()
+              .then(function (downloadURL) {
+                return database
+                  .ref(
+                    `/${localStorage.getItem("chatId")}/my-account/${
+                      data.id
+                    }/imageProfil`
+                  )
+                  .set(
+                    downloadURL,
 
-                (error) => {
-                  if (error) {
-                    // dispatch({ type: "CHANGE_LOADING", value: false });
-                    // The write failed...
-                    console.log(error);
-                  } else {
-                    // dispatch({ type: "CHANGE_LOADING", value: false });
-                    // Data saved successfully!
-                    console.log("succes");
-                    dispatch({ type: "PROFIL_LOADING", value: false });
-                  }
-                }
-              );
-          });
-        }
-      );
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+                    (error) => {
+                      if (error) {
+                        // dispatch({ type: "CHANGE_LOADING", value: false });
+                        // The write failed...
+                        console.log(error);
+                      } else {
+                        // dispatch({ type: "CHANGE_LOADING", value: false });
+                        // Data saved successfully!
+                        console.log("succes");
+                        dispatch({ type: "PROFIL_LOADING", value: false });
+                      }
+                    }
+                  );
+              });
+          }
+        );
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 };
 
 export const loadProfilRoom = (data) => (dispatch) => {

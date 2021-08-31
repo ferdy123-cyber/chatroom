@@ -285,7 +285,7 @@ const ChatRoom = ({
                 : "ChatBox d-flex justify-content-between shadow "
             }
           >
-            {showAddContact === false && (
+            {
               <div
                 className={
                   screenOpen === "list-room" && contactProfil === false
@@ -495,12 +495,8 @@ const ChatRoom = ({
                   {showListContact === true && <ListContact />}
                 </div>
               </div>
-            )}
-            {showAddContact === true && (
-              <div className="listRoom border-end border-2">
-                <AddContact />
-              </div>
-            )}
+            }
+            {showAddContact === true && <AddContact />}
             {roomId.destination !== "" && (
               <div
                 className={

@@ -12,6 +12,7 @@ import { useState } from "react";
 
 const ListContact = ({
   listContacts,
+  setScreenOpen,
   getRoomChat,
   listOtherRoomChat,
   listRoomChat,
@@ -35,6 +36,7 @@ const ListContact = ({
   };
   const getId = (data) => {
     getRoomId(data);
+    setScreenOpen("chat");
     showContact(false);
   };
   const contactRoom = listRoomChat.filter((x) => x.destinationName !== "");
@@ -56,9 +58,6 @@ const ListContact = ({
           }
         })
         .map((e) => {
-          const filter = listContacts.filter(
-            (val) => val.contact === e.destination
-          );
           return (
             <div>
               {
@@ -168,6 +167,11 @@ const dispatchReducer = (dispatch) => ({
 
   // addDestinationRoom: (data) => dispatch(addDestinationRoom(data)),
   showContact: (data) => dispatch({ type: "SHOW_CONTACT_MENU", value: data }),
+  setScreenOpen: (data) =>
+    dispatch({
+      type: "screen",
+      value: data,
+    }),
   getRoom: () => dispatch(getRoom()),
   getOtherRoom: (data) => dispatch(getOtherRoom(data)),
   getRoomId: (data) => dispatch(getRoomId(data)),

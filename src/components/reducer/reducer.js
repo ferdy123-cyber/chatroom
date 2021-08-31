@@ -9,7 +9,7 @@ const initialstate = {
   showListContact: false,
   listUser: [],
   showMainAddContactImg: true,
-  availableNumber: "",
+  availableNumber: null,
   listContacts: [],
   showAddContact: false,
   listRoomChat: [],
