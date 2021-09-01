@@ -18,7 +18,9 @@ const AddContact = ({
   listRoomChat,
 }) => {
   const [newNumber, setNewNumber] = useState("");
+  const namecontact = listRoomChat.filter((e) => e.destination === newNumber);
   const [name, setName] = useState("");
+
   const hideContact = () => {
     hideContactMenu(false);
     setSearchContact(null);
@@ -29,8 +31,16 @@ const AddContact = ({
     setName("");
     hideContactMenu(false);
   };
+  const setNumber = (data) => {
+    setNewNumber(data);
+  };
+  const search = (data) => {
+    searchContact(data);
+    setName(namecontact.length !== 0 ? namecontact[0].destinationName : "");
+  };
+  console.log(namecontact.length !== 0 ? namecontact[0].destinationName : "");
   const idContact = listUser.filter((e) => e.number === newNumber);
-
+  console.log(name);
   return (
     <div className="confirmField-chatSetting d-flex justify-content-center align-items-center">
       <div className="add-contact shadow text-start">
@@ -44,8 +54,6 @@ const AddContact = ({
           availableNumber !== localStorage.getItem("phoneNumber") && (
             <h2>Nomor ditemukan</h2>
           )}
-        {listRoomChat.filter((e) => e.destination === availableNumber)
-          .destinationName !== "" && <h2>Dimiliki</h2>}
         <div className="input-contact">
           {(availableNumber !== newNumber ||
             availableNumber === localStorage.getItem("phoneNumber")) && (
@@ -53,7 +61,7 @@ const AddContact = ({
               <span>Nomor</span>
               <input
                 value={newNumber}
-                onChange={(e) => setNewNumber(e.target.value)}
+                onChange={(e) => setNumber(e.target.value)}
                 type="text"
                 autoFocus={true}
               />
@@ -70,6 +78,7 @@ const AddContact = ({
                   onChange={(e) => setName(e.target.value)}
                   autoFocus={true}
                   type="text"
+                  maxLength="12"
                 />
                 <br />
               </div>
@@ -89,7 +98,7 @@ const AddContact = ({
             </button>
             {(availableNumber !== newNumber ||
               availableNumber === localStorage.getItem("phoneNumber")) && (
-              <button onClick={() => searchContact(newNumber)} className="cari">
+              <button onClick={() => search(newNumber)} className="cari">
                 Cari
               </button>
             )}

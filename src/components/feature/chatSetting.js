@@ -62,7 +62,7 @@ const ChatSetting = ({
                 value={name.charAt(0).toUpperCase() + name.slice(1)}
                 onChange={(e) => setName(e.target.value)}
                 autoFocus="autoFocus"
-                maxLength="13"
+                maxLength="12"
                 className="val"
               />
             </div>
