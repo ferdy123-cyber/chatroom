@@ -48,7 +48,6 @@ import {
 import AddContact from "../feature/addcontact";
 import moment from "moment";
 import ReactPlayer from "react-player/lazy";
-
 const ChatRoom = ({
   getChats,
   showListContact,
@@ -360,160 +359,160 @@ const ChatRoom = ({
                         autoFocus
                       />
                     )}
-                    {showListContact === false && listRoomChat.length !== 0 && (
-                      <div className="listChat justify-content-center">
-                        {listRoomChat
-                          .filter((val) => val.chat.length !== 0)
-                          .map((e, index) => {
-                            return (
-                              <div className="listmap border-bottom border-2">
-                                <div
-                                  onClick={() =>
-                                    RoomId({
-                                      userId: e.userId,
-                                      destinationId: e.destinationId,
-                                      roomId: e.id,
-                                      destinationName: e.destinationName,
-                                      destination: e.destination,
-                                      account: e.accounts,
-                                    })
-                                  }
-                                  className={
-                                    "listView d-flex " +
-                                    (e.id === roomId.myRoomId
-                                      ? "blackBackground"
-                                      : "")
-                                  }
-                                >
-                                  <div>
-                                    {e.accounts.imageProfil !== "" && (
+                  </div>
+
+                  {showListContact === false && listRoomChat.length !== 0 && (
+                    <div className="listChat">
+                      {listRoomChat
+                        .filter((val) => val.chat.length !== 0)
+                        .map((e, index) => {
+                          return (
+                            <div className="listmap border-bottom border-2">
+                              <div
+                                onClick={() =>
+                                  RoomId({
+                                    userId: e.userId,
+                                    destinationId: e.destinationId,
+                                    roomId: e.id,
+                                    destinationName: e.destinationName,
+                                    destination: e.destination,
+                                    account: e.accounts,
+                                  })
+                                }
+                                className={
+                                  "listView d-flex " +
+                                  (e.id === roomId.myRoomId
+                                    ? "blackBackground"
+                                    : "")
+                                }
+                              >
+                                <div>
+                                  {e.accounts.imageProfil !== "" && (
+                                    <img
+                                      src={e.accounts.imageProfil}
+                                      width="50px"
+                                      height="50px"
+                                      alt=""
+                                    />
+                                  )}
+                                  {e.accounts.imageProfil === "" && (
+                                    <img
+                                      src={avatar2}
+                                      width="50px"
+                                      height="50px"
+                                      alt=""
+                                    />
+                                  )}
+                                </div>
+
+                                <div className="name align-items-center">
+                                  {e.destinationName === "" && (
+                                    <div className="nameAndTime d-flex justify-content-between">
+                                      <p className="name1">{e.destination}</p>
+                                      <p className="timeRoomChat">
+                                        {e.chat[e.chat.length - 1].time}
+                                      </p>
+                                    </div>
+                                  )}
+
+                                  {e.destinationName !== "" && (
+                                    <div className="nameAndTime d-flex justify-content-between">
+                                      <p className="name1">
+                                        {e.destinationName}
+                                      </p>
+                                      <p className="timeRoomChat">
+                                        {e.chat[e.chat.length - 1].time}
+                                      </p>
+                                    </div>
+                                  )}
+
+                                  {(e.chat[e.chat.length - 1].type === "text" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyText" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "emoji" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyEmoji" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyEmoji" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyEmoji" ||
+                                    e.chat[e.chat.length - 1].type === "" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyEmoji") && (
+                                    <p className="pEdit textPreview">
+                                      {e.chat[e.chat.length - 1].chat}
+                                    </p>
+                                  )}
+                                  {(e.chat[e.chat.length - 1].type ===
+                                    "image" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyImage" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyImage" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyImage" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyImage") && (
+                                    <p className="textPreview">
                                       <img
-                                        src={e.accounts.imageProfil}
-                                        width="50px"
-                                        height="50px"
+                                        className="imageTypeLastChat"
+                                        src={camera}
                                         alt=""
+                                        width="14px"
+                                        height="13px"
                                       />
-                                    )}
-                                    {e.accounts.imageProfil === "" && (
+                                      {"  "}
+                                      Foto
+                                    </p>
+                                  )}
+                                  {(e.chat[e.chat.length - 1].type ===
+                                    "video" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardText-replyVideo" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardEmoji-replyVideo" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardImage-replyVideo" ||
+                                    e.chat[e.chat.length - 1].type ===
+                                      "forwardVideo-replyVideo") && (
+                                    <p className="textPreview">
                                       <img
-                                        src={avatar2}
-                                        width="50px"
-                                        height="50px"
+                                        className="imageTypeLastChat"
+                                        src={iconVideo}
                                         alt=""
+                                        width="14px"
+                                        height="13px"
                                       />
-                                    )}
-                                  </div>
-
-                                  <div className="name align-items-center">
-                                    {e.destinationName === "" && (
-                                      <div className="nameAndTime d-flex justify-content-between">
-                                        <p className="name1">{e.destination}</p>
-                                        <p className="timeRoomChat">
-                                          {e.chat[e.chat.length - 1].time}
-                                        </p>
-                                      </div>
-                                    )}
-
-                                    {e.destinationName !== "" && (
-                                      <div className="nameAndTime d-flex justify-content-between">
-                                        <p className="name1">
-                                          {e.destinationName}
-                                        </p>
-                                        <p className="timeRoomChat">
-                                          {e.chat[e.chat.length - 1].time}
-                                        </p>
-                                      </div>
-                                    )}
-
-                                    {(e.chat[e.chat.length - 1].type ===
-                                      "text" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardText-replyText" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardImage-replyText" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardEmoji-replyText" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardVideo-replyText" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "emoji" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardText-replyEmoji" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardEmoji-replyEmoji" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardImage-replyEmoji" ||
-                                      e.chat[e.chat.length - 1].type === "" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardVideo-replyEmoji") && (
-                                      <p className="pEdit textPreview">
-                                        {e.chat[e.chat.length - 1].chat}
-                                      </p>
-                                    )}
-                                    {(e.chat[e.chat.length - 1].type ===
-                                      "image" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardText-replyImage" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardEmoji-replyImage" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardImage-replyImage" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardVideo-replyImage") && (
-                                      <p className="textPreview">
-                                        <img
-                                          className="imageTypeLastChat"
-                                          src={camera}
-                                          alt=""
-                                          width="14px"
-                                          height="13px"
-                                        />
-                                        {"  "}
-                                        Foto
-                                      </p>
-                                    )}
-                                    {(e.chat[e.chat.length - 1].type ===
-                                      "video" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardText-replyVideo" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardEmoji-replyVideo" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardImage-replyVideo" ||
-                                      e.chat[e.chat.length - 1].type ===
-                                        "forwardVideo-replyVideo") && (
-                                      <p className="textPreview">
-                                        <img
-                                          className="imageTypeLastChat"
-                                          src={iconVideo}
-                                          alt=""
-                                          width="14px"
-                                          height="13px"
-                                        />
-                                        {"  "}
-                                        Video
-                                      </p>
-                                    )}
-                                  </div>
+                                      {"  "}
+                                      Video
+                                    </p>
+                                  )}
                                 </div>
                               </div>
-                            );
-                          })}
-                      </div>
-                    )}
-                    {showListContact === false && listRoomChat.length === 0 && (
-                      <div className="listChat justify-content-center">
-                        <button
-                          onClick={() => showContact(true)}
-                          className="newChatIsEmpty"
-                        >
-                          Mulai chat baru
-                        </button>
-                      </div>
-                    )}
+                            </div>
+                          );
+                        })}
+                    </div>
+                  )}
+                  {showListContact === false && listRoomChat.length === 0 && (
+                    <div className="listChat justify-content-center">
+                      <button
+                        onClick={() => showContact(true)}
+                        className="newChatIsEmpty"
+                      >
+                        Mulai chat baru
+                      </button>
+                    </div>
+                  )}
 
-                    {showListContact === true && <ListContact />}
-                  </div>
+                  {showListContact === true && <ListContact />}
                 </div>
               }
               {showAddContact === true && <AddContact />}

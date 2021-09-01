@@ -9,7 +9,6 @@ import {
   editRoomName,
 } from "../reducer/action";
 import { useState } from "react";
-
 const ListContact = ({
   listContacts,
   setScreenOpen,
@@ -41,7 +40,7 @@ const ListContact = ({
   };
   const contactRoom = listRoomChat.filter((x) => x.destinationName !== "");
   return (
-    <div className="listChat justify-content-center">
+    <div className="listChat2 justify-content-center">
       {contactRoom
         .filter((val) => {
           if (searchInput === "") {
