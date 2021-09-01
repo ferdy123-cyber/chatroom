@@ -2734,6 +2734,7 @@ margin-top: 3px;
       width: 100%;
       height: 98vh;
       animation: animasiChatView 0.5s ease;
+      position: fixed;
       top: 5px;
     }
     .chatView {
