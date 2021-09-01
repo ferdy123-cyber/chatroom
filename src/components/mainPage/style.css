@@ -55,10 +55,12 @@
 .ChatBox {
   background-color: #f4f3f8;
   border-radius: 2px;
-  position: fixed;
   width: 90vw;
   height: 90vh;
-  
+  position: fixed;
+  top:0;
+  bottom: 0;
+  margin: auto;
 }
 
 .phoneChatbox {
@@ -2494,8 +2496,8 @@ margin-top: 3px;
     background-color: #f4f3f8;
     border-radius: 0px;
     position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 95vw;
+    height: 90vh;
     top: 0;
     bottom: 0;
     left: 0;
@@ -2644,6 +2646,16 @@ margin-top: 3px;
     
   }
   @media (max-width: 768px) {
+    .ChatBox {
+      background-color: #f4f3f8;
+      border-radius: 0px;
+      position: fixed;
+      width: 98vw;
+      height: 98vh;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
     .listRoom {
       width: 40%;
     }
@@ -2682,6 +2694,16 @@ margin-top: 3px;
     }
   }
   @media (max-width: 576px) {
+    .ChatBox {
+      background-color: #f4f3f8;
+      border-radius: 0px;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
     .listRoom-none {
       display: none;
     }
