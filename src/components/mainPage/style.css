@@ -380,6 +380,7 @@
   width: 100%;
   position: relative;
   z-index: 2;
+  background-color: #f4f3f8;
 }
 
 .close-chat {
