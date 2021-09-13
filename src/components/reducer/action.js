@@ -711,6 +711,8 @@ export const getAccount = () => (dispatch) => {
           });
           return <div></div>;
         });
+      } else {
+        localStorage.setItem("chatLogin", "false");
       }
 
       // if (account.length === 0) {
@@ -722,9 +724,11 @@ export const getAccount = () => (dispatch) => {
         type: "GET_ACCOUNT",
         value: account,
       });
-      dispatch({ type: "GET_STATUS", value: account[0].status });
-      dispatch({ type: "GET_PROFIL_NAME", value: account[0].name });
-      dispatch({ type: "GET_PROFIL_IMG", value: account[0].imageProfil });
+      if (account.length !== 0) {
+        dispatch({ type: "GET_STATUS", value: account[0].status });
+        dispatch({ type: "GET_PROFIL_NAME", value: account[0].name });
+        dispatch({ type: "GET_PROFIL_IMG", value: account[0].imageProfil });
+      }
       dispatch({ type: "ASSET_LOADING", value: false });
     });
 };
